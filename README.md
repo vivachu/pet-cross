@@ -7,7 +7,7 @@ You need [Node.js and npm](https://nodejs.org/). You should also have git instal
 
 Clone the repository (or download the ZIP file)
 
-`git clone https://github.com/vivachu/pets-minigames.git PetWalk`
+`git clone https://github.com/vivachu/pet-cross.git PetCross`
 
 Install dependencies
 

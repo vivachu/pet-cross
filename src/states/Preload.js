@@ -84,7 +84,60 @@ class Preload extends Phaser.State {
 
 		//Progress Asset
 
-		//text popup asset
+		//Land Asset
+		this.game.load.image('lane1', 'assets/pics/gameplay/lane1.png');
+		this.game.load.image('lane2', 'assets/pics/gameplay/lane2.png');
+		this.game.load.image('lane3', 'assets/pics/gameplay/lane3.png');
+		this.game.load.image('lane3kot', 'assets/pics/gameplay/tile3.png');
+		this.game.load.image('lane4', 'assets/pics/gameplay/lane4.png');
+		this.game.load.image('lane5', 'assets/pics/gameplay/lane5.png');
+		this.game.load.image('lane6', 'assets/pics/gameplay/lane6.png');
+		this.game.load.image('lane7', 'assets/pics/gameplay/lane7.png');
+		this.game.load.image('lane8', 'assets/pics/gameplay/lane8.png');
+		this.game.load.image('grass1', 'assets/pics/gameplay/grass-1.png');
+		this.game.load.image('grass2', 'assets/pics/gameplay/grass-2.png');
+		this.game.load.image('roadup', 'assets/pics/gameplay/road-section-upper.png');
+		this.game.load.image('road', 'assets/pics/gameplay/road.png');
+		this.game.load.image('roaddown', 'assets/pics/gameplay/road-section-lower.png');
+		this.game.load.image('roadline', 'assets/pics/gameplay/road-line.png');
+		this.game.load.image('roadcrack', 'assets/pics/gameplay/road-crack.png');
+
+
+		this.game.load.image('waterup', 'assets/pics/gameplay/river-section-upper.png');
+		this.game.load.image('water1', 'assets/pics/gameplay/water-1.png');
+		this.game.load.image('water2', 'assets/pics/gameplay/water-2.png');
+		this.game.load.image('water3', 'assets/pics/gameplay/water-3.png');
+		this.game.load.image('water4', 'assets/pics/gameplay/water-4.png');
+		this.game.load.image('waterdown', 'assets/pics/gameplay/river-section-lower.png');
+	
+		//Cars
+		this.game.load.image('car1', 'assets/pics/gameplay/jeep-red.png');
+		this.game.load.image('car2', 'assets/pics/gameplay/jeep-yellow.png');
+		this.game.load.image('car3', 'assets/pics/gameplay/camper.png');
+
+		//Logs
+		this.game.load.image('log1', 'assets/pics/gameplay/log1.png');
+		this.game.load.image('log2', 'assets/pics/gameplay/log2.png');
+		this.game.load.image('log3', 'assets/pics/gameplay/log3.png');
+		this.game.load.image('log4', 'assets/pics/gameplay/log4.png');
+
+		//fence
+		this.game.load.image('fence1', 'assets/pics/gameplay/fence-end-2.png');
+		this.game.load.image('fence2', 'assets/pics/gameplay/fence.png');
+		this.game.load.image('fence3', 'assets/pics/gameplay/fence-end-1.png');
+
+		//Items
+		this.game.load.image('coin', 'assets/pics/gameplay/coin.png');
+		this.game.load.image('flower', 'assets/pics/gameplay/flower.png');
+		this.game.load.image('rock1', 'assets/pics/gameplay/rock-1.png');
+		this.game.load.image('rock2', 'assets/pics/gameplay/rock-2.png');
+		this.game.load.image('ticket', 'assets/pics/gameplay/ticket.png');
+		this.game.load.image('tree', 'assets/pics/gameplay/tree.png');
+
+
+		//Character Asset 
+		this.game.load.image('char1', 'assets/pics/gameplay/char1.png');
+
 
 
 		//GameStart Assets

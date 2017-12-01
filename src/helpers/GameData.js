@@ -3,7 +3,7 @@ class GameData {
 	constructor(game){
 		this.initialized = false;
 		this.game = game;
-		this.gameState = 0;	//0=begin, 1=play, 2=pause, 3=gameover
+		this.gameState = 0;	//0=begin, 1=play, 2=pause, 3=miss, 4=gameover
 		this.refWidth = 800;
 		this.refHeight = 1280;
 		this.completion = 0;
@@ -11,8 +11,26 @@ class GameData {
 
 	create(game){
 		this.game = game;
+		this.gameState = 0;
+			//
 		this.initialized = true;
 		this.scaleFactor = this.game.height / this.refHeight;
+		this.tileWidth = 72*this.scaleFactor;
+
+ 		this.screenWidth=(this.game.width/this.tileWidth)*2;
+		this.leftOffset = this.screenWidth/4;
+		this.rightOffset = this.screenWidth-this.leftOffset; 
+
+		this.boundsWidth = this.game.width+(720*this.scaleFactor);
+		//num of columns since the grid width is 360 , add 1 segment for space
+		this.columns = 1+Math.round((this.boundsWidth/(360*this.scaleFactor)));
+
+
+		this.midOffset = Math.round(Math.round(this.boundsWidth/this.tileWidth)/2);
+		this.leftOffset = this.midOffset-5;
+		this.rightOffset = this.midOffset+5;
+
+		this.totalLanes = 300;
 
 	    //apiUrl
 	    if (this.getUrlVars()["apiUrl"] != null){
