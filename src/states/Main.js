@@ -28,25 +28,18 @@ class Main extends Phaser.State {
 		this.currentLevel = null;
 
 
+
+		this.startGame(); //this.gameStart = new GameStart(this.game,this);
+
+		this.tutorial = new Tutorial(this.game, this);
+		this.gameFinished = new GameFinished(this.game, this);
   		this.pauseButton = this.game.add.button(GameData.getx(620), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
   		this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		this.pauseButton.fixedToCamera = true;
 
 
-		this.gameStart = new GameStart(this.game,this);
-
-		this.tutorial = new Tutorial(this.game, this);
-		this.gameFinished = new GameFinished(this.game, this);
-
 		this.popup = new PopUp(this.game, this);
 
-		if (LogScreen.enableFPSCounter == true){
-
-			var style0 = {font: "60px Arial", fill: "#ff0000", align: "center"};
-			this.textConsole0 = this.game.add.text(0, 0, 'fpsa: ', style0);
-		    this.textConsole0.fixedToCamera = true;
-		    this.game.time.advancedTiming = true;
-		}
 
 		//this.startGame();
 
@@ -77,8 +70,6 @@ class Main extends Phaser.State {
 		GameData.gameState=1;
 		SoundMan.resumeMusic();
 
-		this.toolsDragStop(); //so the user idle will be count from this point
-
 		//this.gameFinished = new GameFinished(this.game, this);
 		//this.convertTimeToCoin();
 
@@ -91,7 +82,7 @@ class Main extends Phaser.State {
 
 
 	update() {
-
+		if (this.currentLevel!=null) this.currentLevel.update();
 	}
 
 	convertTimeToCoin(){
@@ -172,17 +163,6 @@ class Main extends Phaser.State {
 			this.initGameFinished();
 		}
 	}
-
-	toolsDragStart(){
-
-		this.tutorial.toolsDragStart();
-	}
-
-	toolsDragStop(){
-
-		this.tutorial.toolsDragStop();
-	}
-
 
 	render(){
 		//this.game.debug.text('render FPS: ' + (this.game.time.fps || '--') , 2, 14, "#00ff00");

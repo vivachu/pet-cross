@@ -1,7 +1,7 @@
 {
-  "name": "petparade-minigames-petwalk",
+  "name": "petparade-minigames-petcross",
   "version": "1.0.0",
-  "description": "Pet Parade Minigames game 1 : PetWalk.",
+  "description": "Pet Parade Minigames game 4 : PetCross.",
   "main": "src/index.js",
   "scripts": {
     "start": "gulp",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/vivachu/pets-minigames"
+    "url": "https://github.com/vivachu/pet-cross"
   },
   "author": "Erwin PS",
   "license": "MIT",
@@ -26,7 +26,8 @@
     "gulp-util": "^3.0.6",
     "vinyl-source-stream": "^1.1.0",
     "yargs": "^3.16.1",
-    "phaser-swipe": "^1.0.4"
+    "phaser-swipe": "^1.0.4",
+    "hammerjs": "^2.0.8"
   },
   "dependencies": {
     "phaser": "^2.6.2"
