@@ -2,13 +2,13 @@ import GameData from 'helpers/GameData'
 import Lane from 'objects/Lane'
 
 
-class Land extends Phaser.TileSprite{
+class Land extends Phaser.Sprite{
 
 	constructor(game, level){
 
 
 
-		super(game, 0,0,game.width,0, 'grass1');
+		super(game, 0,0, 'grass1');
 		this.game = game;
 		this.level = level;
 		this.game.add.existing(this); 

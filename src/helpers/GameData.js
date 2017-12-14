@@ -24,8 +24,6 @@ class GameData {
 		this.boundsWidth = this.game.width+(720*this.scaleFactor);
 		//num of columns since the grid width is 360 , add 1 segment for space
 		this.columns = 1+Math.round((this.boundsWidth/(360*this.scaleFactor)));
-
-
 		this.midOffset = Math.round(Math.round(this.boundsWidth/this.tileWidth)/2);
 		this.leftOffset = this.midOffset-5;
 		this.rightOffset = this.midOffset+5;

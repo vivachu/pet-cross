@@ -33,6 +33,7 @@ class Level extends Phaser.Sprite{
 		var laneid=0;	//lane number    
 	    this.lanes = new Array();
 	    var prevLane=0;
+	    var pakeFence=0;
 	    while (ctr<GameData.totalLanes){
 	    	var laneType = this.game.rnd.integerInRange(1,3);
 	    	if (laneType==2 && prevLane==3) laneType=lGrass;
@@ -70,7 +71,11 @@ class Level extends Phaser.Sprite{
 
 		    
 	    }
-
+	    if (prevLane==lroad) {this.addLane(laneid,5);laneid++;ctr++;}
+		if (prevLane==lwater) {this.addLane(laneid,8);laneid++;ctr++;}
+	    for (var i=0;i<10;i++){
+		    	this.addLane(laneid,1);laneid++;
+		}
 	    GameData.totalLanes=laneid;
 
 		this.landGroup = this.game.add.group();
@@ -81,6 +86,10 @@ class Level extends Phaser.Sprite{
 
 		this.woodGroup = this.game.add.group();
 		this.game.physics.arcade.enable(this.woodGroup);
+
+		this.fenceGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.fenceGroup);
+
 
 		this.avatar = new Avatar(this.game, this);
 		//this.game.camera.follow(this.avatar);
@@ -111,7 +120,7 @@ class Level extends Phaser.Sprite{
 		    	variant:variant,
 		    	pos:laneid, 
 		    	onscreen:false
-		    };
+		};
 	}
 
 	gameOver(){
@@ -126,7 +135,9 @@ class Level extends Phaser.Sprite{
 			this.avatar.update();
 			this.avatar.bringToTop();
 			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
-			this.textConsole0.text ='campos: ' + ln + ',' + this.avatar.posy;
+			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
+			//this.textConsole0.text = 'fps : ' + this.avatar.x + " , " + this.avatar.y;
+			this.textConsole0.text = 'fps : ' + this.game.time.fps;
 			this.land.checkLane();
 	//	}
 	}

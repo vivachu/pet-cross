@@ -94,6 +94,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('lane6', 'assets/pics/gameplay/lane6.png');
 		this.game.load.image('lane7', 'assets/pics/gameplay/lane7.png');
 		this.game.load.image('lane8', 'assets/pics/gameplay/lane8.png');
+		this.game.load.image('lane9', 'assets/pics/gameplay/lane9.png');
 		this.game.load.image('grass1', 'assets/pics/gameplay/grass-1.png');
 		this.game.load.image('grass2', 'assets/pics/gameplay/grass-2.png');
 		this.game.load.image('roadup', 'assets/pics/gameplay/road-section-upper.png');

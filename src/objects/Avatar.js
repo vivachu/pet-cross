@@ -15,7 +15,7 @@ class Avatar extends Phaser.Sprite{
 		this.width=GameData.tileWidth;
 		this.height=GameData.tileWidth;  
 
- 		this.setpos(GameData.midOffset,GameData.totalLanes-15);
+ 		this.setpos(GameData.midOffset,GameData.totalLanes-10);
  		this.game.physics.enable(this, Phaser.Physics.ARCADE);
 		
 	    this.lastSafePosty = this.posy;
@@ -40,6 +40,7 @@ class Avatar extends Phaser.Sprite{
     	this.inWater=false;
 
     	this.missFlag=0;
+    	this.keceburCounter=0;
 	}
 
 	setpos(xtile,ytile){
@@ -52,35 +53,41 @@ class Avatar extends Phaser.Sprite{
 		if (arah=='left'){//} && this.posx<=GameData.rightOffset){
    	    	this.posx++;
  	    	GameKey.keyfree=false;
+ 	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
+ 	    	this.inWater=false;
    	    	this.game.add.tween(this).to( { x: this.x+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 		if (arah=='right'){// && this.posx>GameData.leftOffset){
    	    	this.posx--;
  	    	GameKey.keyfree=false;
+ 	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
+ 	    	this.inWater=false;
 			this.game.add.tween(this).to( { x: this.x-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 		if (arah=='jump'){
   	    	this.posy--;
-			this.checkLane(-1);
  	    	GameKey.keyfree=false;
+ 	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
+ 	    	this.inWater=false;
    	    	this.game.add.tween(this).to( { y: this.y-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Back.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 		if (arah=='down'){
   	    	this.posy++;
-			this.checkLane(1);
  	    	GameKey.keyfree=false;
+ 	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
+ 	    	this.inWater=false;
   	    	this.game.add.tween(this).to( { y: this.y+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 
@@ -89,6 +96,7 @@ class Avatar extends Phaser.Sprite{
 	tweenFinished(){
 		GameKey.keyfree=true;
 		this.ready=true;
+		this.checkLane();
 	}
 
 	playAgain(){
@@ -108,19 +116,12 @@ class Avatar extends Phaser.Sprite{
 		this.rideOffset=this.x-wood.x;
 	}
 
-	checkLane(dir){
+	checkLane(){
 		var currentLane=this.level.lanes[this.posy];
-		if (dir==-1){
-			if (currentLane.type==5 ||currentLane.type==8) {
+		if (currentLane.type==5 ||currentLane.type==8 || currentLane.type==2 ||currentLane.type==6) {
 				this.lastSafePosty = currentLane.pos;
 				this.lastSafePostx = this.posx;
-			}
-		}else{
-			//if down
-			if (currentLane.type==2 ||currentLane.type==6) {
-				this.lastSafePosty = currentLane.pos;
-				this.lastSafePostx = this.posx;
-			}
+				//console.log("this.lastSafePost : " + this.lastSafePostx + ", " + this.lastSafePosty);
 		}
 
 		if(currentLane.type==7){
@@ -133,18 +134,24 @@ class Avatar extends Phaser.Sprite{
 	update(){ 
 		if (this.missFlag==1){
 			this.missFlag=0;
+			//onsole.log("move to .lastSafePost : " + this.lastSafePostx + ", " + this.lastSafePosty);
+			this.posx=this.lastSafePostx;
+			this.posy=this.lastSafePosty;
 	 	  	this.game.add.tween(this).to( { x: GameData.tileWidth*this.lastSafePostx, y: GameData.tileWidth*this.lastSafePosty}, 1000, Phaser.Easing.Linear.None, true).onComplete.add(this.missFinished, this);
 		}
 		if (GameData.gameState==1){
 			GameKey.update();
 			GameTouch.update();
-			if (this.rideObject!=null){
-				this.x=this.rideObject.x+this.rideOffset;
-			
-			}else{
-				if (this.ready && this.inWater==true){
-					this.inWater=false;
-				//	this.level.gameOver();
+			if (this.inWater){
+				if (this.rideObject!=null){
+					this.x=this.rideObject.x+this.rideOffset;
+				}else{
+					//console.log("kecebur");
+					this.keceburCounter++;
+					if (this.keceburCounter>5) {
+						this.keceburCounter=0;
+						//this.level.gameOver();	
+					}
 				}
 			}
 		}

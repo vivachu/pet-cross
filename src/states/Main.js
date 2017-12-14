@@ -16,7 +16,7 @@ class Main extends Phaser.State {
 		
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 		this.game.stage.backgroundColor = '#000000';
-
+		this.game.time.advancedTiming = true;
 		
 		SoundMan.create(this.game);
 
@@ -33,7 +33,7 @@ class Main extends Phaser.State {
 
 		this.tutorial = new Tutorial(this.game, this);
 		this.gameFinished = new GameFinished(this.game, this);
-  		this.pauseButton = this.game.add.button(GameData.getx(620), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
+  		this.pauseButton = this.game.add.button(GameData.getx(320), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
   		this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		this.pauseButton.fixedToCamera = true;
 
@@ -68,7 +68,7 @@ class Main extends Phaser.State {
 		}
 
 		GameData.gameState=1;
-		SoundMan.resumeMusic();
+	//	SoundMan.resumeMusic();
 
 		//this.gameFinished = new GameFinished(this.game, this);
 		//this.convertTimeToCoin();
