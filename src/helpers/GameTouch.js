@@ -26,8 +26,8 @@ class GameTouch {
         this.onTap = new Phaser.Signal();
 		this.onHold = new Phaser.Signal();	
 
-		this.onTap.add(this.onJump,this);
-		this.onSwipe.add(this.onMove,this);
+		this.onTap.add(this.onTaps,this);
+		//this.onSwipe.add(this.onMove,this);
 		GameTouch.SWIPE = 0;
 	    GameTouch.TAP = 1;	
     	GameTouch.HOLD = 2;
@@ -42,8 +42,22 @@ class GameTouch {
 		this.cl=0;
 	} 
 
-	onJump(){
-		this.avatar.move('jump');
+	onTaps(){
+//		var dx=this.game.input.activePointer.position.x-this.game.input.activePointer.positionDown.x;
+//		var dy=this.game.input.activePointer.position.y-this.game.input.activePointer.positionDown.y;
+//		console.log(this.game.input.activePointer.positionDown.x + " , " + this.game.input.activePointer.positionDown.y);
+		var dx=this.avatar.x-this.game.camera.x-this.game.input.activePointer.positionDown.x;
+		var dy=this.avatar.y-this.game.camera.y-this.game.input.activePointer.positionDown.y;
+		//console.log(dx + " , " + dy);
+
+
+		if (Math.abs(dx)>Math.abs(dy)){
+			if (dx>=0)	this.avatar.move('right');
+			if (dx<0)	this.avatar.move('left');
+		}else{
+			if (dy<=0)	this.avatar.move('down');
+			if (dy>0)	this.avatar.move('jump');
+		}
 //			this.game.add.tween(this.avatar).to( { y: this.avatar.y-this.avatar.jumpPower}, this.avatar.jumpSpeed, Phaser.Easing.Back.In, true);
 	}
 
@@ -107,7 +121,7 @@ class GameTouch {
 	  	var distance = Phaser.Point.distance(this.game.input.activePointer.position, this.game.input.activePointer.positionDown);
         var duration = this.game.input.activePointer.duration;
 
-        this.updateSwipe(distance, duration);
+       // this.updateSwipe(distance, duration);
 		this.updateTouch(distance, duration);
 	}
 
