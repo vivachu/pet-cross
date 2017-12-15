@@ -38,9 +38,24 @@ See [gulpfile.md](https://github.com/vivachu/pets-minigames/gulpfile.md)
 
 ## Changelog (1.0.0)
 
-* base code added
-* assets artwork added
-* deployment branch created for maintaining the project 
+- base code added
+- assets artwork added
+- Drawing algo using Phaser native tilemap failed, lagging badly
+- Changing Drawing algo , my own tilemap system, lagging badly 
+- adding cars and wood logs
+- Changing Drawing algo , hybrid tiling success, noticable lagging, bad on xiaomi
+- controlled random appearance for cars
+- car collision and gameovers
+- riding wood logs
+- falling into river, failed, conflict with riding woods
+- Changing Drawing algo , using BitmapData draws bitmap to lanes, no lag low fps
+- fixing wood log random to a controlled random system
+- creating fence and other ornaments
+- Changing Drawing algo, hybrid tiling to pure grid tiling. high fps
+- creating controlled random for fences
+
+
+
 
 ## Contributing
 

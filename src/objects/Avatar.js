@@ -50,7 +50,8 @@ class Avatar extends Phaser.Sprite{
 	}
 
 	move(arah){
-		if (arah=='left'){//} && this.posx<=GameData.rightOffset){
+		if (arah=='left' && this.posx<GameData.rightOffset){
+			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset+1] != undefined) return;
    	    	this.posx++;
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
@@ -60,7 +61,8 @@ class Avatar extends Phaser.Sprite{
  	    	this.inWater=false;
    	    	this.game.add.tween(this).to( { x: this.x+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
-		if (arah=='right'){// && this.posx>GameData.leftOffset){
+		if (arah=='right' && this.posx>GameData.leftOffset){
+			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset-1] != undefined) return;
    	    	this.posx--;
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
@@ -71,16 +73,23 @@ class Avatar extends Phaser.Sprite{
 			this.game.add.tween(this).to( { x: this.x-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 		if (arah=='jump'){
+			if (this.level.lanes[this.posy-1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy--;
+  	    	if (this.posy<=5){
+  	    		//win!
+  	    		this.level.gameWin();
+  	    	}
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
  	    	this.inWater=false;
-   	    	this.game.add.tween(this).to( { y: this.y-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Back.Out, true).onComplete.add(this.tweenFinished, this);
+ 	    	this.posx=Math.round(this.x/GameData.tileWidth);
+   	    	this.game.add.tween(this).to( { x:this.posx*GameData.tileWidth, y: this.y-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Back.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 		if (arah=='down'){
+			if (this.level.lanes[this.posy+1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy++;
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
@@ -88,7 +97,8 @@ class Avatar extends Phaser.Sprite{
  	    	this.rideOffset = 0;
  	    	this.ready=false;
  	    	this.inWater=false;
-  	    	this.game.add.tween(this).to( { y: this.y+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
+ 	    	this.posx=Math.round(this.x/GameData.tileWidth);
+  	    	this.game.add.tween(this).to( { x:this.posx*GameData.tileWidth, y: this.y+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
 		}
 
 	}
@@ -142,6 +152,11 @@ class Avatar extends Phaser.Sprite{
 		if (GameData.gameState==1){
 			GameKey.update();
 			GameTouch.update();
+
+			if (this.x<GameData.leftPixelOffset || this.x>GameData.rightPixelOffset) 
+				this.level.gameOver();	
+
+
 			if (this.inWater){
 				if (this.rideObject!=null){
 					this.x=this.rideObject.x+this.rideOffset;

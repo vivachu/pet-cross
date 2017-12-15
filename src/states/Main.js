@@ -1,6 +1,7 @@
 import LogScreen from 'helpers/LogScreen';
 import Avatar from 'objects/Avatar'; 
 import Level from 'objects/Level'; 
+import TimeBar from 'objects/TimeBar'; 
 import PopUp from 'helpers/PopUp'; 
 import GameData from 'helpers/GameData'
 import GameStart from 'helpers/GameStart'
@@ -29,14 +30,16 @@ class Main extends Phaser.State {
 
 
 
-		this.startGame(); //this.gameStart = new GameStart(this.game,this);
+		//this.startGame(); 
+		this.gameStart = new GameStart(this.game,this);
 
 		this.tutorial = new Tutorial(this.game, this);
 		this.gameFinished = new GameFinished(this.game, this);
-  		this.pauseButton = this.game.add.button(GameData.getx(320), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
+  		this.pauseButton = this.game.add.button(GameData.getx(650), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
   		this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		this.pauseButton.fixedToCamera = true;
 
+		this.timeBar = new TimeBar(this.game, this);
 
 		this.popup = new PopUp(this.game, this);
 
@@ -63,7 +66,7 @@ class Main extends Phaser.State {
 
 			this.currentLevel = new Level(this.game, this);
 
-//			this.timeBar.Start();
+			this.timeBar.Start();
 
 		}
 
@@ -139,7 +142,7 @@ class Main extends Phaser.State {
 		this.currentLevel=null;
 		this.stopGame();
 		SoundMan.playBgWin();
-		this.timeBar.Stop();
+		//this.timeBar.Stop();
 
 		//this.gameFinished = new GameFinished(this.game, this);
 		this.convertTimeToCoin();

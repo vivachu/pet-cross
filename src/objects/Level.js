@@ -33,7 +33,13 @@ class Level extends Phaser.Sprite{
 		var laneid=0;	//lane number    
 	    this.lanes = new Array();
 	    var prevLane=0;
+	    
+		this.prevVariant=0;
+
 	    var pakeFence=0;
+	     for (var i=0;i<10;i++){
+		    	this.addLane(laneid,1,5);laneid++;
+		}
 	    while (ctr<GameData.totalLanes){
 	    	var laneType = this.game.rnd.integerInRange(1,3);
 	    	if (laneType==2 && prevLane==3) laneType=lGrass;
@@ -44,9 +50,9 @@ class Level extends Phaser.Sprite{
 	    		//grass
 	    		if (prevLane==lroad) {this.addLane(laneid,5);laneid++;ctr++;}
 	    		if (prevLane==lwater) {this.addLane(laneid,8);laneid++;ctr++;}
-		    	this.addLane(laneid,1);laneid++;ctr++;
-		    	this.addLane(laneid,1,1);laneid++;ctr++;
-		    	this.addLane(laneid,1);laneid++;ctr++;
+		    	this.addLane(laneid,1,this.getVariant());laneid++;ctr++;
+		    	this.addLane(laneid,1,this.getVariant());laneid++;ctr++;
+		    	this.addLane(laneid,1,this.getVariant());laneid++;ctr++;
 	    	}
 	    	if (laneType==lroad){
 	    		//road
@@ -114,12 +120,21 @@ class Level extends Phaser.Sprite{
 
 	}
 
+	getVariant(){
+    	var newVariant = this.game.rnd.integerInRange(1,3);
+    	if (this.prevVariant==1) newVariant = 4;
+    	this.prevVariant=newVariant;
+    	return newVariant;
+    }
+
+
 	addLane(laneid,laneType,variant){
 		this.lanes[laneid]={
 		    	type:laneType, 
 		    	variant:variant,
 		    	pos:laneid, 
-		    	onscreen:false
+		    	onscreen:false,
+		    	rows:new Array()
 		};
 	}
 
@@ -130,14 +145,19 @@ class Level extends Phaser.Sprite{
 
 	}
 
+	gameWin(){
+		this.main.initGameFinished();
+	}
+
 	update(){
 	//	if (GameData.gameState==1){
 			this.avatar.update();
 			this.avatar.bringToTop();
 			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
-			//this.textConsole0.text = 'fps : ' + this.avatar.x + " , " + this.avatar.y;
-			this.textConsole0.text = 'fps : ' + this.game.time.fps;
+			this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy;
+			//this.textConsole0.text = 'fps : ' + this.game.time.fps;
+			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
 			this.land.checkLane();
 	//	}
 	}

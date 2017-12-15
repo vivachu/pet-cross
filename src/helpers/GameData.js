@@ -17,9 +17,9 @@ class GameData {
 		this.scaleFactor = this.game.height / this.refHeight;
 		this.tileWidth = 72*this.scaleFactor;
 
- 		this.screenWidth=(this.game.width/this.tileWidth)*2;
-		this.leftOffset = this.screenWidth/4;
-		this.rightOffset = this.screenWidth-this.leftOffset; 
+ 		this.screenWidth=Math.round((this.game.width/this.tileWidth)*2);
+//		this.leftOffset = this.screenWidth/4;
+//		this.rightOffset = this.screenWidth-this.leftOffset; 
 
 		this.boundsWidth = this.game.width+(720*this.scaleFactor);
 		//num of columns since the grid width is 360 , add 1 segment for space
@@ -28,7 +28,9 @@ class GameData {
 		this.leftOffset = this.midOffset-5;
 		this.rightOffset = this.midOffset+5;
 
-		this.totalLanes = 300;
+		this.leftPixelOffset = this.leftOffset*this.tileWidth-this.tileWidth;
+		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;
+		this.totalLanes = 50;
 
 	    //apiUrl
 	    if (this.getUrlVars()["apiUrl"] != null){

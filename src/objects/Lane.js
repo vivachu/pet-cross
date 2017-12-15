@@ -16,56 +16,53 @@ class Lane {
     	this.totMovingObjects = this.game.rnd.integerInRange(5,10);
 		this.columns = new Array();
 		this.objects = new Array();
-    	 
+    	this.itemArray = ['flower','rock1','rock2','bush'];
     	//create lane
 		this.bmdLane=this.game.add.bitmapData(GameData.columns*360,72);
 		this.sprLane = this.game.add.sprite(0,this.line*(72*GameData.scaleFactor),this.bmdLane);
 		this.sprLane.scale.x=GameData.scaleFactor;
 		this.sprLane.scale.y=GameData.scaleFactor;
 		this.level.landGroup.add(this.sprLane);
-		for (var i=0;i<GameData.columns-1;i++){
-			var bmds = this.game.make.bitmapData(360,72);
-			bmds.width=360*GameData.scaleFactor;
-			bmds.copy('lane'+this.lanes[this.line].type);
-			//bmds.copy('lane9');
-	    	this.bmdLane.draw(bmds,i*360,0);
-	    	bmds.destroy();
-	    	bmds=null;
+		for (var i=0;i<GameData.screenWidth;i++){
+			var obname="";
+			switch (this.lanes[this.line].type) {
+				case 1: Math.random()>0.5?obname='grass1':obname='grass2';break; 	//rumput
+				case 2: obname='roadup';break; 										//batas rumput jalan
+				case 3: Math.random()>0.9?obname='roadcrack':obname='road';break; 	//jalan
+				case 4: obname='roadline';break; 									//garis jalan
+				case 5: obname='roaddown';break; 									//batas jalan rumput
+				case 6: obname='waterup';break; 									//batas rumput air
+				case 7: obname='water'+this.game.rnd.integerInRange(1,4);break;  	//air
+				case 8: obname='waterdown';break;									//batas air rumput
+			}
+			this.addBMD(i*72,0,72,72,obname);
+			//add shade to unplayable areas
+			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*72,0,72,72,'shade');
 		}
 
 
 		this.arah=1;
 		if (Math.random()>0.5) this.arah=-1;
 
+
 		if (this.lanes[this.line].type==1){//grass
-			variant=1;
-			if (variant==1){//fence
-				var numTriggers = GameData.boundsWidth/GameData.tileWidth;
-  			    for (var i=0;i<numTriggers;i++){
-					var bmds = this.game.make.bitmapData(72,72);
-					bmds.copy('fence2');
-	    			this.bmdLane.draw(bmds,i*72,0);
-	    			bmds.destroy();
-	    			bmds=null;
-				}
-			}else if (variant==2){//trees
-							
-			}else if (variant==3){//flowers
-							
-			}else if (variant==4){//rocks
- 
-			}
+			//batas
+	   		//this.drawToLane((GameData.leftOffset-1)*72,0,72,72,this.randomItem());
+	   		//this.drawToLane((GameData.rightOffset+1)*72,0,72,72,this.randomItem());
+			if (variant==1) this.drawFences();
+			if (variant==2) this.drawOrnaments();			
+			if (variant==3) this.drawOrnaments();			
 		} else if (this.lanes[this.line].type==3){//road
 			var numTriggers = GameData.boundsWidth/(7*GameData.tileWidth);
 		    var numObjects=0;
 		    var space=GameData.boundsWidth/numTriggers;
-			for(var i = 0; i<numTriggers-2 ; i++){
+			for(var i = 0; i<numTriggers ; i++){
 				this.objects[numObjects] = new Car(
 														this.game,
 														this.level,
 														this,
 														i*space,
-														this.line*GameData.tileWidth-(50*GameData.scaleFactor)
+														this.line*GameData.tileWidth-(72*GameData.scaleFactor)
 													);
 				numObjects++;
 			}
@@ -90,34 +87,87 @@ class Lane {
 
 	}
 
-	resize(ob, width, height) {
-	  width = width.toInt();
-	  height = height.toInt();
+	drawFences(){
+		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,GameData.rightOffset);
+		var openingRight= openingLeft + this.game.rnd.integerInRange(1,4);
+		if (openingRight>GameData.rightOffset) openingRight=GameData.rightOffset;
 
-	  if (width != ob.width || height != ob.height) {
-	    ob.width = width;
-	    ob.height = height;
 
-	    ob.canvas.width = width;
-	    ob.canvas.height = height;
-
-	    ob.baseTexture.width = width;
-	    ob.baseTexture.height = height;
-
-	    ob.textureFrame.width = width;
-	    ob.textureFrame.height = height;
-
-	    ob.texture.width = width;
-	    ob.texture.height = height;
-
-	    ob.refreshBuffer();
-	    ob.dirty = true;
+		var numTriggers = GameData.boundsWidth/GameData.tileWidth;
+		var ctr=0;
+	    for (var i=0;i<numTriggers;i++){	   
+	    	var arrayContent = undefined; 	
+	    	if (i<openingLeft || i> openingRight) {
+	    		arrayContent = 'fence2'
+				this.drawToLane(i*72,0,72,72,arrayContent);
+	    	}
+			if (i>=GameData.leftOffset && i<=GameData.rightOffset){
+				this.lanes[this.line].rows[ctr]=arrayContent;
+				ctr++;
+			}
+		}
 	}
 
-}
+	drawTrees(){
+	}
+
+	drawOrnaments(){
+		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,GameData.rightOffset);
+		var openingRight= openingLeft + this.game.rnd.integerInRange(1,4);
+		if (openingRight>GameData.rightOffset) openingRight=GameData.rightOffset;
 
 
+		var numTriggers = GameData.boundsWidth/GameData.tileWidth;
+		var ctr=0;
+		var prev="";
+	    for (var i=0;i<numTriggers;i++){	   
+	    	var arrayContent = undefined; 	
+	    	if (prev==""){
+		    	if (i<openingLeft || i> openingRight) {
+		    		if (Math.random()>0.8) {
+			    		arrayContent = this.randomItem();
+			    		var xpos=72;
+			    		if (arrayContent=='rock2'||arrayContent=='bush') xpos=144;
+						this.drawToLane(i*72,0,xpos,72,arrayContent);
+					}
+		    	}
+				if (i>=GameData.leftOffset && i<=GameData.rightOffset && arrayContent!='flower'){
+					if (this.lanes[this.line].rows[ctr]!=undefined) console.log("Waduuh" + this.lanes[this.line].rows[ctr]);
+					this.lanes[this.line].rows[ctr]=arrayContent;
+					ctr++;
+					if (arrayContent=='rock2'||arrayContent=='bush'){
+						prev=arrayContent;
+					}
+				}
+			}else{
+				prev="";
+				this.lanes[this.line].rows[ctr]=prev;
+				ctr++;
 
+			}
+		}
+	}
+
+	randomItem(){
+    	return this.itemArray[this.game.rnd.integerInRange(0,3)];
+	}
+		
+	drawToLane(x,y,w,h,name){
+		var bmds = this.game.make.bitmapData(w,h);
+		bmds.copy(name);
+		this.bmdLane.draw(bmds,x,y,w,h);
+		bmds.destroy();
+	    bmds=null;
+	}
+
+	addBMD(x,y,w,h,name){
+		var bmds = this.game.make.bitmapData(w,h);
+		bmds.width=w*GameData.scaleFactor;
+		bmds.copy(name);
+    	this.bmdLane.draw(bmds,x,y);
+    	bmds.destroy();
+    	bmds=null;
+	}
 
 	destroy(){
 		this.bmdLane.destroy();
