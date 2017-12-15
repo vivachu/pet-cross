@@ -37,8 +37,11 @@ class Level extends Phaser.Sprite{
 		this.prevVariant=0;
 
 	    var pakeFence=0;
-	     for (var i=0;i<10;i++){
+	    for (var i=0;i<5;i++){
 		    	this.addLane(laneid,1,5);laneid++;
+		}
+	    for (var i=0;i<5;i++){
+		    	this.addLane(laneid,1,4);laneid++;
 		}
 	    while (ctr<GameData.totalLanes){
 	    	var laneType = this.game.rnd.integerInRange(1,3);
@@ -80,7 +83,7 @@ class Level extends Phaser.Sprite{
 	    if (prevLane==lroad) {this.addLane(laneid,5);laneid++;ctr++;}
 		if (prevLane==lwater) {this.addLane(laneid,8);laneid++;ctr++;}
 	    for (var i=0;i<10;i++){
-		    	this.addLane(laneid,1);laneid++;
+		    	this.addLane(laneid,1,5);laneid++;
 		}
 	    GameData.totalLanes=laneid;
 

@@ -86,6 +86,7 @@ class Preload extends Phaser.State {
 
 		//Land Asset
 		this.game.load.image('shade', 'assets/pics/gameplay/shade.png');
+		this.game.load.image('highlight', 'assets/pics/gameplay/highlight.png');
 /*//		this.game.load.image('lane1', 'assets/pics/gameplay/lane1.png');
 		this.game.load.image('lane2', 'assets/pics/gameplay/lane2.png');
 		this.game.load.image('lane3', 'assets/pics/gameplay/lane3.png');

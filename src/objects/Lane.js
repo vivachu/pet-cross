@@ -52,6 +52,7 @@ class Lane {
 			if (variant==1) this.drawFences();
 			if (variant==2) this.drawOrnaments();			
 			if (variant==3) this.drawOrnaments();			
+			if (variant==5) this.drawHighlight();			
 		} else if (this.lanes[this.line].type==3){//road
 			var numTriggers = GameData.boundsWidth/(7*GameData.tileWidth);
 		    var numObjects=0;
@@ -111,6 +112,14 @@ class Lane {
 	drawTrees(){
 	}
 
+	drawHighlight(){
+		var numTriggers = GameData.boundsWidth/GameData.tileWidth;
+		var ctr=0;
+	    for (var i=0;i<numTriggers;i++){	   
+			this.drawToLane(i*72,0,72,72,'highlight');
+		}		
+	}
+	
 	drawOrnaments(){
 		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,GameData.rightOffset);
 		var openingRight= openingLeft + this.game.rnd.integerInRange(1,4);
