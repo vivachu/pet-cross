@@ -85,7 +85,8 @@ class Preload extends Phaser.State {
 		//Progress Asset
 
 		//Land Asset
-		this.game.load.image('lane1', 'assets/pics/gameplay/lane1.png');
+		this.game.load.image('shade', 'assets/pics/gameplay/shade.png');
+/*//		this.game.load.image('lane1', 'assets/pics/gameplay/lane1.png');
 		this.game.load.image('lane2', 'assets/pics/gameplay/lane2.png');
 		this.game.load.image('lane3', 'assets/pics/gameplay/lane3.png');
 		this.game.load.image('lane3kot', 'assets/pics/gameplay/tile3.png');
@@ -95,6 +96,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('lane7', 'assets/pics/gameplay/lane7.png');
 		this.game.load.image('lane8', 'assets/pics/gameplay/lane8.png');
 		this.game.load.image('lane9', 'assets/pics/gameplay/lane9.png');
+*/
+
+
 		this.game.load.image('grass1', 'assets/pics/gameplay/grass-1.png');
 		this.game.load.image('grass2', 'assets/pics/gameplay/grass-2.png');
 		this.game.load.image('roadup', 'assets/pics/gameplay/road-section-upper.png');
@@ -134,6 +138,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('rock2', 'assets/pics/gameplay/rock-2.png');
 		this.game.load.image('ticket', 'assets/pics/gameplay/ticket.png');
 		this.game.load.image('tree', 'assets/pics/gameplay/tree.png');
+		this.game.load.image('bush', 'assets/pics/gameplay/bush.png');
 
 
 		//Character Asset 
