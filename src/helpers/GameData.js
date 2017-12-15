@@ -30,7 +30,7 @@ class GameData {
 
 		this.leftPixelOffset = this.leftOffset*this.tileWidth-this.tileWidth;
 		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;
-		this.totalLanes = 50;
+		this.totalLanes = 200;
 
 	    //apiUrl
 	    if (this.getUrlVars()["apiUrl"] != null){

@@ -50,6 +50,7 @@ class Avatar extends Phaser.Sprite{
 	}
 
 	move(arah){
+		if (GameData.gameState!=1) return;
 		if (arah=='left' && this.posx<GameData.rightOffset){
 			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset+1] != undefined) return;
    	    	this.posx++;
@@ -75,7 +76,7 @@ class Avatar extends Phaser.Sprite{
 		if (arah=='jump'){
 			if (this.level.lanes[this.posy-1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy--;
-  	    	if (this.posy<=5){
+  	    	if (this.posy<5){
   	    		//win!
   	    		this.level.gameWin();
   	    	}
@@ -136,6 +137,7 @@ class Avatar extends Phaser.Sprite{
 
 		if(currentLane.type==7){
 			this.inWater=true;
+		//	console.log("in water " + this.rideObject);
 		}else{
 			this.inWater=false;
 		}
@@ -159,13 +161,14 @@ class Avatar extends Phaser.Sprite{
 
 			if (this.inWater){
 				if (this.rideObject!=null){
+					this.keceburCounter=0;
 					this.x=this.rideObject.x+this.rideOffset;
 				}else{
 					//console.log("kecebur");
 					this.keceburCounter++;
 					if (this.keceburCounter>5) {
 						this.keceburCounter=0;
-						//this.level.gameOver();	
+						this.level.gameOver();	
 					}
 				}
 			}

@@ -24,18 +24,15 @@ class Main extends Phaser.State {
 		GameData.create(this.game);
 		
 		this.gameEnd = false;
-		this.startTime = this.game.time.now; 
+		this.startTime = this.game.time.now; //debug
 		this.firstStart = true;
 		this.currentLevel = null;
 
-
-
-		//this.startGame(); 
 		this.gameStart = new GameStart(this.game,this);
 
 		this.tutorial = new Tutorial(this.game, this);
 		this.gameFinished = new GameFinished(this.game, this);
-  		this.pauseButton = this.game.add.button(GameData.getx(650), 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
+  		this.pauseButton = this.game.add.button(650 * GameData.scaleFactor, 1100 * GameData.scaleFactor, 'btpauseup', this.pauseClicked, this, 2, 1, 0);
   		this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		this.pauseButton.fixedToCamera = true;
 
@@ -43,9 +40,8 @@ class Main extends Phaser.State {
 
 		this.popup = new PopUp(this.game, this);
 
-
-		//this.startGame();
-
+		
+		//this.startGame();//debug
 	}
 
 	pauseClicked(){
@@ -142,6 +138,8 @@ class Main extends Phaser.State {
 		this.currentLevel=null;
 		this.stopGame();
 		SoundMan.playBgWin();
+		GameData.gameState=3;
+
 		//this.timeBar.Stop();
 
 		//this.gameFinished = new GameFinished(this.game, this);
