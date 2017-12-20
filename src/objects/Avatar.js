@@ -31,7 +31,7 @@ class Avatar extends Phaser.Sprite{
     	GameTouch.create(this,this.game);
     	this.tofollow = this.game.add.sprite(0,0,'');
     	this.addChild(this.tofollow);
-    	this.tofollow.y=-2000*GameData.scaleFactor;
+    	this.tofollow.y=-1000*GameData.scaleFactor;
 
 
     	this.rideObject=null;

@@ -15,7 +15,7 @@ class GameData {
 			//
 		this.initialized = true;
 		this.scaleFactor = this.game.height / this.refHeight;
-		this.tileWidth = 72*this.scaleFactor;
+		this.tileWidth = 144*this.scaleFactor;
 
  		this.screenWidth=Math.round((this.game.width/this.tileWidth)*2);
 //		this.leftOffset = this.screenWidth/4;
@@ -26,7 +26,7 @@ class GameData {
 		this.columns = 1+Math.round((this.boundsWidth/(360*this.scaleFactor)));
 		this.midOffset = Math.round(Math.round(this.boundsWidth/this.tileWidth)/2);
 		this.leftOffset = this.midOffset-5;
-		this.rightOffset = this.midOffset+5;
+		this.rightOffset = this.midOffset+4;
 
 		this.leftPixelOffset = this.leftOffset*this.tileWidth-this.tileWidth;
 		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;

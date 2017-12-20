@@ -12,14 +12,14 @@ class Lane {
 		this.line=j;
 		this.y=j*GameData.tileWidth;
 		this.lanes=this.land.level.lanes;
-    	this.laneSpeed=this.game.rnd.integerInRange(2,5)*GameData.scaleFactor;
+    	this.laneSpeed=this.game.rnd.integerInRange(2,8)*GameData.scaleFactor;
     	this.totMovingObjects = this.game.rnd.integerInRange(5,10);
 		this.columns = new Array();
 		this.objects = new Array();
-    	this.itemArray = ['flower','rock1','rock2','bush'];
+    	this.itemArray = ['flower','rock1','bush'];
     	//create lane
-		this.bmdLane=this.game.add.bitmapData(GameData.columns*360,72);
-		this.sprLane = this.game.add.sprite(0,this.line*(72*GameData.scaleFactor),this.bmdLane);
+		this.bmdLane=this.game.add.bitmapData(GameData.columns*360,144);
+		this.sprLane = this.game.add.sprite(0,this.line*(144*GameData.scaleFactor),this.bmdLane);
 		this.sprLane.scale.x=GameData.scaleFactor;
 		this.sprLane.scale.y=GameData.scaleFactor;
 		this.level.landGroup.add(this.sprLane);
@@ -35,15 +35,13 @@ class Lane {
 				case 7: obname='water'+this.game.rnd.integerInRange(1,4);break;  	//air
 				case 8: obname='waterdown';break;									//batas air rumput
 			}
-			this.addBMD(i*72,0,72,72,obname);
+			this.addBMD(i*144,0,144,144,obname);
 			//add shade to unplayable areas
-			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*72,0,72,72,'shade');
+			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*144,0,144,144,'shade');
 		}
-
 
 		this.arah=1;
 		if (Math.random()>0.5) this.arah=-1;
-
 
 		if (this.lanes[this.line].type==1){//grass
 			//batas
@@ -63,17 +61,17 @@ class Lane {
 														this.level,
 														this,
 														i*space,
-														this.line*GameData.tileWidth-(72*GameData.scaleFactor)
+														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
 													);
 				numObjects++;
 			}
 		} else if (this.lanes[this.line].type==7){//water
 			this.laneSpeed=this.game.rnd.integerInRange(1,3)*GameData.scaleFactor;
-		    var space=360*GameData.scaleFactor;
+		    var space=576*GameData.scaleFactor;
 			var numTriggers = GameData.boundsWidth/space;
 		    var numObjects=0;
 		    for (var i=0;i<numTriggers-1;i++){
-				variant =  this.game.rnd.integerInRange(1,4)
+				variant =  this.game.rnd.integerInRange(1,3)
 				this.objects[numObjects] = new Wood(
 														this.game,
 														this.level,
@@ -100,7 +98,7 @@ class Lane {
 	    	var arrayContent = undefined; 	
 	    	if (i<openingLeft || i> openingRight) {
 	    		arrayContent = 'fence2'
-				this.drawToLane(i*72,0,72,72,arrayContent);
+				this.drawToLane(i*144,0,144,144,arrayContent);
 	    	}
 			if (i>=GameData.leftOffset && i<=GameData.rightOffset){
 				this.lanes[this.line].rows[ctr]=arrayContent;
@@ -116,7 +114,7 @@ class Lane {
 		var numTriggers = GameData.boundsWidth/GameData.tileWidth;
 		var ctr=0;
 	    for (var i=0;i<numTriggers;i++){	   
-			this.drawToLane(i*72,0,72,72,'highlight');
+			this.drawToLane(i*144,0,144,144,'highlight');
 		}		
 	}
 	
@@ -128,37 +126,24 @@ class Lane {
 
 		var numTriggers = GameData.boundsWidth/GameData.tileWidth;
 		var ctr=0;
-		var prev="";
 	    for (var i=0;i<numTriggers;i++){	   
 	    	var arrayContent = undefined; 	
-	    	if (prev==""){
 		    	if (i<openingLeft || i> openingRight) {
 		    		if (Math.random()>0.8) {
 			    		arrayContent = this.randomItem();
-			    		var xpos=72;
-			    		if (arrayContent=='rock2'||arrayContent=='bush') xpos=144;
-						this.drawToLane(i*72,0,xpos,72,arrayContent);
+						this.drawToLane(i*144,0,144,144,arrayContent);
 					}
 		    	}
-				if (i>=GameData.leftOffset && i<=GameData.rightOffset && arrayContent!='flower'){
-					if (this.lanes[this.line].rows[ctr]!=undefined) console.log("Waduuh" + this.lanes[this.line].rows[ctr]);
-					this.lanes[this.line].rows[ctr]=arrayContent;
+				if (i>=GameData.leftOffset && i<=GameData.rightOffset){
+					if (arrayContent!='flower') this.lanes[this.line].rows[ctr]=arrayContent;
 					ctr++;
-					if (arrayContent=='rock2'||arrayContent=='bush'){
-						prev=arrayContent;
-					}
 				}
-			}else{
-				prev="";
-				this.lanes[this.line].rows[ctr]=prev;
-				ctr++;
 
-			}
 		}
 	}
 
 	randomItem(){
-    	return this.itemArray[this.game.rnd.integerInRange(0,3)];
+    	return this.itemArray[this.game.rnd.integerInRange(0,2)];
 	}
 		
 	drawToLane(x,y,w,h,name){
@@ -188,6 +173,7 @@ class Lane {
 			this.objects[j].destroy();
 		}
 		this.columns=null;
+		this.destroy();
 	}
 }
 

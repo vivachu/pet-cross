@@ -28,7 +28,7 @@ class Land extends Phaser.Sprite{
 
 	updateLane(){
 		var camLineTop=Math.round(this.game.camera.y/GameData.tileWidth)-1;
-		var camLineBottom=camLineTop+21;
+		var camLineBottom=camLineTop+10;
 		if (camLineBottom>GameData.totalLanes) camLineBottom=GameData.totalLanes;
 		var topLane=camLineTop-0;
 		var numLane=camLineBottom-topLane+0;

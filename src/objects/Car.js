@@ -14,8 +14,8 @@ class Car extends Phaser.Sprite{
 		this.land.level.carGroup.add(this);
 		this.triggerOther = false;
 
-		this.width=GameData.scaleFactor*144;
-		this.height=GameData.scaleFactor*144;
+		this.width=GameData.scaleFactor*288;
+		this.height=GameData.scaleFactor*288;
  	//	this.game.physics.enable(this, Phaser.Physics.ARCADE);
 	//	this.body.immovable = false;
    // 	this.body.collideWorldBounds = true;
