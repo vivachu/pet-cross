@@ -44,6 +44,12 @@ class SoundMan {
 		this.sfxVacuum = this.game.add.audio('vacuum');
 		this.sfxVacuum.allowMultiple = true;
 
+		this.sfxCoinAdd = this.game.add.audio('coinAdd', 0.6);
+		this.sfxCoinAdd.allowMultiple = true;
+
+		this.sfxCoinFin = this.game.add.audio('coinFin', 0.4);
+
+
 
 		//this.music.play();
 		//this.music.pause();
@@ -62,6 +68,8 @@ class SoundMan {
 		if (effect=='sponge') this.sfxSponge.play();
 		if (effect=='trash') this.sfxTrash.play();
 		if (effect=='vacuum') this.sfxVacuum.play();
+		if (effect == 'coinAdd')this.sfxCoinAdd.play();
+		if (effect == 'coinFin')this.sfxCoinFin.play();
 	}
 
 	playBgWin(){
