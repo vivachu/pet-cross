@@ -125,6 +125,7 @@ class Level extends Phaser.Sprite{
 
 	getVariant(){
     	var newVariant = this.game.rnd.integerInRange(1,3);
+    	if (newVariant==1 && this.prevVariant<4) newVariant=4;
     	if (this.prevVariant==1) newVariant = 4;
     	this.prevVariant=newVariant;
     	return newVariant;
