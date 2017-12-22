@@ -1,5 +1,7 @@
 import GameData from 'helpers/GameData'
 import Car from 'objects/Car'
+import Coin from 'objects/Coin'
+import Ticket from 'objects/Ticket'
 import Wood from 'objects/Wood'
 
 
@@ -23,6 +25,8 @@ class Lane {
 		this.sprLane.scale.x=GameData.scaleFactor;
 		this.sprLane.scale.y=GameData.scaleFactor;
 		this.level.landGroup.add(this.sprLane);
+		this.numObjects=0;
+		this.bonusOnLane = false;
 		for (var i=0;i<GameData.screenWidth;i++){
 			var obname="";
 			switch (this.lanes[this.line].type) {
@@ -52,27 +56,28 @@ class Lane {
 			if (variant==3) this.drawOrnaments();			
 			if (variant==5) this.drawHighlight();			
 		} else if (this.lanes[this.line].type==3){//road
-			var numTriggers = GameData.boundsWidth/(7*GameData.tileWidth);
-		    var numObjects=0;
+			var numTriggers = GameData.boundsWidth/GameData.tileWidth;		    
 		    var space=GameData.boundsWidth/numTriggers;
-			for(var i = 0; i<numTriggers ; i++){
-				this.objects[numObjects] = new Car(
+			for(var i = 0; i<numTriggers ; i+=3){
+				if (Math.random()>0.4){				
+					this.objects[this.numObjects] = new Car(
 														this.game,
 														this.level,
 														this,
 														i*space,
 														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
 													);
-				numObjects++;
+					this.numObjects++;
+				}
 			}
 		} else if (this.lanes[this.line].type==7){//water
 			this.laneSpeed=this.game.rnd.integerInRange(1,3)*GameData.scaleFactor;
 		    var space=576*GameData.scaleFactor;
 			var numTriggers = GameData.boundsWidth/space;
-		    var numObjects=0;
 		    for (var i=0;i<numTriggers-1;i++){
-				variant =  this.game.rnd.integerInRange(1,3)
-				this.objects[numObjects] = new Wood(
+				variant =  this.game.rnd.integerInRange(1,4);
+				if (variant<4){
+					this.objects[this.numObjects] = new Wood(
 														this.game,
 														this.level,
 														this,i*space,
@@ -80,7 +85,8 @@ class Lane {
 														numTriggers*space,
 														variant
 													);
-				numObjects++;
+					this.numObjects++;
+				}
 			}
 		}
 
@@ -128,14 +134,17 @@ class Lane {
 		var ctr=0;
 	    for (var i=0;i<numTriggers;i++){	   
 	    	var arrayContent = undefined; 	
-		    	if (i<openingLeft || i> openingRight) {
+//		    	if (i<openingLeft || i> openingRight) {
 		    		if (Math.random()>0.8) {
 			    		arrayContent = this.randomItem();
 						this.drawToLane(i*144,0,144,144,arrayContent);
 					}
-		    	}
+//		    	}
 				if (i>=GameData.leftOffset && i<=GameData.rightOffset){
 					if (arrayContent!='flower') this.lanes[this.line].rows[ctr]=arrayContent;
+					if (arrayContent==undefined){
+						this.addBonus(i*144);
+					}
 					ctr++;
 				}
 
@@ -153,6 +162,35 @@ class Lane {
 		bmds.destroy();
 	    bmds=null;
 	}
+
+	addBonus(x){
+			console.log(GameData.ticketOnMap);
+			if (Math.random()>0.8 && !this.bonusOnLane && GameData.ticketOnMap<1){
+				this.bonusOnLane=true;
+				GameData.ticketOnMap++;
+				this.objects[this.numObjects] = new Ticket(
+														this.game,
+														this.level,
+														this,
+														x,
+														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
+													);
+				this.numObjects++
+			return;
+			}
+		if (Math.random()>0.95 && !this.bonusOnLane){
+			this.bonusOnLane=true;
+			this.objects[this.numObjects] = new Coin(
+														this.game,
+														this.level,
+														this,
+														x,
+														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
+													);
+			this.numObjects++
+		}
+	}
+
 
 	addBMD(x,y,w,h,name){
 		var bmds = this.game.make.bitmapData(w,h);

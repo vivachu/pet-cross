@@ -36,7 +36,8 @@ class Main extends Phaser.State {
   		this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		this.pauseButton.fixedToCamera = true;
 
-		this.timeBar = new TimeBar(this.game, this);
+		this.timeBar = null;
+
 
 		this.popup = new PopUp(this.game, this);
 
@@ -67,7 +68,7 @@ class Main extends Phaser.State {
 		}
 
 		GameData.gameState=1;
-	//	SoundMan.resumeMusic();
+		SoundMan.resumeMusic();
 
 		//this.gameFinished = new GameFinished(this.game, this);
 		//this.convertTimeToCoin();
@@ -85,7 +86,9 @@ class Main extends Phaser.State {
 	}
 
 	convertTimeToCoin(){
-		console.log('ts: ' + this.timeBar.totalSeconds);
+		console.log('totalDistance: ' + GameData.playDistance);
+		console.log('coinCollected: ' + GameData.coinCollected);
+		console.log('ticketCollected: ' + GameData.ticketCollected);
 		Backend.serviceCallEnd(this, this.timeBar.totalSeconds);
 	}
 

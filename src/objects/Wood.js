@@ -57,7 +57,7 @@ class Wood extends Phaser.Sprite{
 
 		var yy=Math.round(this.level.avatar.y/GameData.tileWidth);
 		if (yy == this.lane.line){
-		//	console.log("ride " + this.name);
+		//55	console.log("ride " + this.name);
 	    	this.ridden=true;
 			this.level.avatar.rideWood(this);
 		}
