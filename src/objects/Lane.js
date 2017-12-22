@@ -58,7 +58,7 @@ class Lane {
 		} else if (this.lanes[this.line].type==3){//road
 			var numTriggers = GameData.boundsWidth/GameData.tileWidth;		    
 		    var space=GameData.boundsWidth/numTriggers;
-			for(var i = 0; i<numTriggers ; i+=3){
+			for(var i = 0; i<numTriggers ; i+=4){
 				if (Math.random()>0.4){				
 					this.objects[this.numObjects] = new Car(
 														this.game,
@@ -76,6 +76,7 @@ class Lane {
 			var numTriggers = GameData.boundsWidth/space;
 		    for (var i=0;i<numTriggers-1;i++){
 				variant =  this.game.rnd.integerInRange(1,4);
+				if (i==0) variant=1;
 				if (variant<4){
 					this.objects[this.numObjects] = new Wood(
 														this.game,
