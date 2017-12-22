@@ -3,6 +3,7 @@ import LogScreen from 'helpers/LogScreen'
 import SoundMan from 'helpers/SoundMan'
 import Land from 'objects/Land';
 import Avatar from 'objects/Avatar';
+import TimeBar from 'objects/TimeBar'; 
 
 class Level extends Phaser.Sprite{
 
@@ -99,6 +100,9 @@ class Level extends Phaser.Sprite{
 		this.fenceGroup = this.game.add.group();
 		this.game.physics.arcade.enable(this.fenceGroup);
 
+		this.bonusGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.bonusGroup);
+
 
 		this.avatar = new Avatar(this.game, this);
 		//this.game.camera.follow(this.avatar);
@@ -110,15 +114,23 @@ class Level extends Phaser.Sprite{
 		var dWidth=this.game.width-(150*GameData.scaleFactor);
 		var dHeight=this.game.height*.5;
 
+		this.main.timeBar = new TimeBar(this.game, this.main);
+		GameData.coinCollected = 0;
+		GameData.ticketCollected = 0;
 
 
 
 ////////debug
-			LogScreen.enableFPSCounter=true;
+	/*		LogScreen.enableFPSCounter=true;
 			var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
 			this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,style0);
 		    this.textConsole0.fixedToCamera = true;
-////////debug
+////////debug*/
+
+			this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
+			this.textLives = this.game.add.text(this.game.width/2, 100*GameData.scaleFactor, this.style0);
+			this.textLives.anchor.setTo(0.5,0.5);
+		    this.textLives.fixedToCamera = true;
 
 
 	}
@@ -157,11 +169,13 @@ class Level extends Phaser.Sprite{
 	//	if (GameData.gameState==1){
 			this.avatar.update();
 			this.avatar.bringToTop();
-			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
+			//var ln=Math.round(this.game.camera.y/GameData.tileWidth);
+			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
-			this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy;
+			//this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy;
 			//this.textConsole0.text = 'fps : ' + this.game.time.fps;
 			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
+			this.textLives.text = GameData.playDistance;
 			this.land.checkLane();
 	//	}
 	}

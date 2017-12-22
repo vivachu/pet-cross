@@ -10,23 +10,27 @@ class TimeBar extends Phaser.Sprite{
 		this.main = main;
 		this.game.add.existing(this);
 
-		this.timebar = game.add.sprite(this.game.world.centerX,100*GameData.scaleFactor, 'timebar');
-	 	this.timebar.anchor.setTo(0.5,0.5);
- 		this.timebar.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
- 		this.timebar.visible=false;
 
-//		this.stext = this.game.add.text(this.game.world.centerX,100 * GameData.scaleFactor, "00:00",  {font: "60px Arial Bold", fill: "#ffffff", align: "center"});
-		this.stext = this.game.add.bitmapText(this.game.world.centerX,100 * GameData.scaleFactor, 'fontOduda', "00:00", 60);
-    	
-    	this.stext.anchor.set(0.5);
-    	this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
-    	this.stext.visible=false;
+
+		this.timebarbg = game.add.sprite(this.game.width/2,100*GameData.scaleFactor, 'timebarbg'); 
+ 		this.timebarbg.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+ 		this.timebarbg.anchor.setTo(0.5,0.5);
+ 		this.timebarbg.fixedToCamera = true;
+ 		//this.timebarbg.x = this.game.width-10;
+		this.timebar = game.add.sprite(this.timebarbg.x-(300*GameData.scaleFactor),this.timebarbg.y, 'timebar');
+		this.barwidth=this.timebar.width; 		
+ 		this.timebar.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+ 		this.timebar.anchor.setTo(0,0.5);
+ 		this.timebar.fixedToCamera = true;
 
     	this.prevTime = this.game.time.totalElapsedSeconds() ; 
     	this.gameTime = 0; 
-
     	this.totalSeconds = 0;
     	this.pause = true;
+
+    	this.cropRect = new Phaser.Rectangle(0, 0, this.barwidth,100);
+    	this.timebar.crop(this.cropRect);
+ 
 	}
 
 
@@ -34,7 +38,6 @@ class TimeBar extends Phaser.Sprite{
 	Start(){
 		this.pause = false;
  		this.timebar.visible=true;
-    	this.stext.visible=true;
 	}
 
 	Pause(){
@@ -62,19 +65,21 @@ class TimeBar extends Phaser.Sprite{
 	update(){
 		if (this.pause) return;
 
-		if (Math.round(this.game.time.totalElapsedSeconds()) > this.prevTime){
-			this.prevTime = Math.round(this.game.time.totalElapsedSeconds());
-			this.gameTime ++ ;
-		}
+			if (Math.round(this.game.time.totalElapsedSeconds()) > this.prevTime && GameData.gameState==1){
+				this.prevTime = Math.round(this.game.time.totalElapsedSeconds());
+				this.gameTime ++ ;
+				this.totalSeconds = Math.round(this.gameTime);
 
-		this.totalSeconds = Math.round(this.gameTime);
- 		var min = Math.floor(this.totalSeconds/60);  
-		var sec = this.totalSeconds % 60
+		    	this.cropRect.width = (this.gameTime/GameData.playTime) * this.barwidth;
+		    	this.timebar.updateCrop();
+		    	if (this.gameTime>=GameData.playTime) {
+		    		this.main.initGameFinished();	
+		    		this.pause=true;
+		    	}
+
+			}
 
 
-		this.stext.text = (min < 10 ? '0' + min : '' + min) + ":" + (sec < 10 ? '0' + sec : '' + sec) ;
-
-		//console.log('ts ' + this.totalSeconds + ' m: ' + min + ' s: ' + sec);
 	}
 
 }

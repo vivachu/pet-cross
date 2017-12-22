@@ -33,9 +33,9 @@ class Car extends Phaser.Sprite{
 			if (this.checkOverlap(this,this.level.avatar)) this.collisionHandler();
 			//this.game.physics.arcade.collide(this, this.level.avatar, this.collisionHandler, null, this);
 			if (this.arah==1){
-				if (this.x>=GameData.boundsWidth) this.x=0;
+				if (this.x>=GameData.boundsWidth+GameData.tileWidth) this.x=0;
 			}else{
-				if (this.x<=0) this.x=GameData.boundsWidth-GameData.tileWidth;
+				if (this.x<0) this.x=GameData.boundsWidth+GameData.tileWidth;
 			}
 		}
 	}

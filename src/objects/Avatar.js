@@ -20,6 +20,7 @@ class Avatar extends Phaser.Sprite{
 		
 	    this.lastSafePosty = this.posy;
 	    this.lastSafePostx = this.posx;
+	    this.starty = this.posy;
 		this.body.immovable = false;
     	this.body.collideWorldBounds = true;
     	this.body.bounce.setTo(1, 1);
