@@ -138,7 +138,7 @@ class Main extends Phaser.State {
 		if (data.nextSession != null && data.nextSession.message != null)nextGameMessage = data.nextSession.message;
 		
 		this.gameFinished.showCoins(data.coinBonus.type, data.coinBonus.amount, data.pet.name, this.petImageUrl, this.petUserImageUrl, data.pointBonus, data.pet.user.initials, 
-			data.coins.silver, data.coins.gold, nextGameMessage);
+			data.user.silverCoins, data.user.goldCoins, nextGameMessage);
 		
 
 		//console.log('api end ' + data.coinBonus.type + ", " + data.coinBonus.amount + ", " + data.pet.name + ", " + this.petImageUrl + ", " + this.petUserImageUrl + ", " + data.pointBonus + ", " + data.pet.user.initials);
