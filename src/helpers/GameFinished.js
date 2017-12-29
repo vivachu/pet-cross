@@ -55,7 +55,7 @@ class GameFinished{
 	//	this.countxStep = 100/cbamax;
 		this.countxStep = 3;
 
-		//this.nextGame = 'Walk Donavan in 1 h 0 m'; //debug
+		//this.nextGame = 'Walk Donavan in 1 h 0 m '; //debug
 		//this.nextGame = 'Walk Coder in 6 h 0 m ';
 
 		if (this.nextGame != ""){
@@ -506,6 +506,20 @@ class GameFinished{
 		
 		var btDoneEndTween = this.game.add.tween(this.btDoneEnd.cameraOffset).to( { y: 1150 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 		
+		this.clockEnd = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'clockEnd');
+		this.clockEnd.anchor.setTo(0.5);
+		this.clockEnd.scale.setTo(GameData.scaleFactor * 1,GameData.scaleFactor * 1);
+		this.clockEnd.fixedToCamera = true;
+		this.clockEnd.cameraOffset.x = this.game.width/2 - 235 * GameData.scaleFactor;
+		this.clockEnd.cameraOffset.y = 1825 * GameData.scaleFactor;
+		this.clockEnd.angle = -30;
+		this.clockEnd.alpha = 0;
+
+		if (this.nextGame != "")this.clockEnd.alpha = 1;
+
+		var clockEndTween = this.game.add.tween(this.clockEnd.cameraOffset).to( { y: 1225 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+
+
 		var nextGameMessageComplete = "";
 		if (this.nextGame != "")nextGameMessageComplete = this.nextGameMessage;
 		 
@@ -515,6 +529,7 @@ class GameFinished{
 		this.nextGameText.fixedToCamera = true;
 		this.nextGameText.cameraOffset.x = this.game.width/2 - this.nextGameText.width/2;
 		this.nextGameText.cameraOffset.y = 1830 * GameData.scaleFactor;
+		this.nextGameText.tint = 0xf5a623;
 
 		var nextGameTextTween = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1230 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 		nextGameTextTween.onComplete.add(this.nextGameEndTween, this);
@@ -571,6 +586,7 @@ class GameFinished{
 		var newGoldSilverTextTweenEnd = this.game.add.tween(this.newSilverCoinText.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		var newGoldCoinTextTweenEnd = this.game.add.tween(this.newGoldCoinText.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		var nextGameTextTweenEnd = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1830 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+		var clockEndTweenEnd = this.game.add.tween(this.clockEnd.cameraOffset).to( { y: 1825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		
 		
     	rectBG2TweenEnd.onComplete.add(this.tweenFinished, this);
@@ -657,6 +673,9 @@ class GameFinished{
 		//console.log('t ' + this.nextGameTick);
 		//this.nextGameTimer = this.game.time.create(false);
 		this.game.time.events.repeat(Phaser.Timer.SECOND, 99999999, this.timerTick, this);
+
+		var clockEndTween2 = this.game.add.tween(this.clockEnd).to( { angle: 30}, 500, Phaser.Easing.Sinusoidal.Out, true, 0, -1);
+		clockEndTween2.yoyo(true, 0);
 	}
 
 	timerTick(){

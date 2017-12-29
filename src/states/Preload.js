@@ -198,6 +198,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('avatarBase', 'assets/pics/endscreen/avatarBase.png');
 		this.game.load.image('avatarMask', 'assets/pics/endscreen/avatarMask.jpg');
 		this.game.load.image('boxBorder', 'assets/pics/endscreen/boxborder.png');
+		this.game.load.image('clockEnd', 'assets/pics/endscreen/clock.png');
 
 		//UI elements
 		this.game.load.image('timebarbg', 'assets/pics/gameplay/fill-bg.png');
