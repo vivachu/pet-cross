@@ -58,7 +58,7 @@ class GameFinished{
 	//	this.countxStep = 100/cbamax;
 		this.countxStep = 3;
 
-		//this.nextGame = 'Walk Donavan in 1 h 0 m '; //debug
+		//this.nextGame = 'Walk Donavan blablabla in 1 h 0 m '; //debug
 		//this.nextGame = 'Walk Coder in 6 h 0 m ';
 
 		if (this.nextGame != ""){
@@ -69,8 +69,8 @@ class GameFinished{
 			//this.nextGameHour = parseInt(arNextGame[3]);
 			//this.nextGameMinute = parseInt(arNextGame[5]);
 
-			this.nextGameSecond = 59;
-			this.nextGameMessage = this.nextGame + this.nextGameSecond + ' sec';
+			//this.nextGameSecond = 59;
+			//this.nextGameMessage = this.nextGame + this.nextGameSecond + ' sec';
 		}
 		
 
@@ -521,11 +521,27 @@ class GameFinished{
 		
 		var btDoneEndTween = this.game.add.tween(this.btDoneEnd.cameraOffset).to( { y: 1150 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 		
+		//var nextGameMessageComplete = "";
+		//if (this.nextGame != "")nextGameMessageComplete = this.nextGameMessage;
+		 
+		this.nextGameText = this.game.add.bitmapText(0, 0, 'fontOduda', this.nextGame, 30);
+		this.nextGameText.anchor.setTo(0, 0.5);
+		this.nextGameText.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+		this.nextGameText.fixedToCamera = true;
+		this.nextGameText.cameraOffset.x = this.game.width/2 - this.nextGameText.width/2 + 15 * GameData.scaleFactor;
+		this.nextGameText.cameraOffset.y = 1830 * GameData.scaleFactor;
+		this.nextGameText.tint = 0xf5a623;
+
+		var nextGameTextTween = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1230 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+		nextGameTextTween.onComplete.add(this.nextGameEndTween, this);
+
+		//console.log('nx ' + this.nextGameText.x);
+
 		this.clockEnd = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'clockEnd');
 		this.clockEnd.anchor.setTo(0.5);
 		this.clockEnd.scale.setTo(GameData.scaleFactor * 1,GameData.scaleFactor * 1);
 		this.clockEnd.fixedToCamera = true;
-		this.clockEnd.cameraOffset.x = this.game.width/2 - 235 * GameData.scaleFactor;
+		this.clockEnd.cameraOffset.x = this.nextGameText.cameraOffset.x - 20 * GameData.scaleFactor;
 		this.clockEnd.cameraOffset.y = 1825 * GameData.scaleFactor;
 		this.clockEnd.angle = -30;
 		this.clockEnd.alpha = 0;
@@ -534,20 +550,6 @@ class GameFinished{
 
 		var clockEndTween = this.game.add.tween(this.clockEnd.cameraOffset).to( { y: 1225 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 
-
-		var nextGameMessageComplete = "";
-		if (this.nextGame != "")nextGameMessageComplete = this.nextGameMessage;
-		 
-		this.nextGameText = this.game.add.bitmapText(0, 0, 'fontOduda', this.nextGameMessage, 30);
-		this.nextGameText.anchor.setTo(0, 0.5);
-		this.nextGameText.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
-		this.nextGameText.fixedToCamera = true;
-		this.nextGameText.cameraOffset.x = this.game.width/2 - this.nextGameText.width/2;
-		this.nextGameText.cameraOffset.y = 1830 * GameData.scaleFactor;
-		this.nextGameText.tint = 0xf5a623;
-
-		var nextGameTextTween = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1230 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
-		nextGameTextTween.onComplete.add(this.nextGameEndTween, this);
 
 	}
 
@@ -705,6 +707,8 @@ class GameFinished{
 	}
 
 	timerTick(){
+
+		return;
 
 		//console.log('time ' + this.game.time.now);
 
