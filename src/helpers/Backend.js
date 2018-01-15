@@ -30,7 +30,7 @@ class Backend {
 	    }else {
 //	    	this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjIsImlhdCI6MTUwMDAzNjI2NX0.UGbPknQvb0B8MOjPMRuqZQP53x6cLQaK5UsD8Dp2SqA';
 	    	
-	    	this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjEwOCwiaWF0IjoxNTA4MjEzNzAxfQ.PFmtORDzRHgYypPOnO3FxpxsP_mBNrUEhyz7hK5jlRI'; //others
+	    	this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjEwMjIsImlhdCI6MTUxMzYyMzEwMn0.w2eWYZLLyqvv9N4C9YcYo1cwaiYq4QubDzXvlGn_0dM'; //others
 	    	//this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjM2LCJpYXQiOjE1MDc4MTMyMDd9.lcKmwQBIDqtnURCidLRbkVIyhoIwGlcEODHHj6x-gQ8';	//petwalk 
 	    }	
 

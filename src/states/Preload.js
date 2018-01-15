@@ -183,6 +183,9 @@ class Preload extends Phaser.State {
 		this.game.load.audio('bgWin', 'assets/sound/applause.mp3');
 		this.game.load.audio('taps', 'assets/sound/taps.mp3');
 		this.game.load.audio('swipe', 'assets/sound/swipesfx.mp3');	
+		this.game.load.audio('coinAdd', 'assets/sound/coinAdd.mp3');
+		this.game.load.audio('coinFin', 'assets/sound/coinFin.mp3');
+
 
 		
 		//endscreen
@@ -194,7 +197,8 @@ class Preload extends Phaser.State {
 		this.game.load.image('starEnd', 'assets/pics/endscreen/star.png');
 		this.game.load.image('avatarBase', 'assets/pics/endscreen/avatarBase.png');
 		this.game.load.image('avatarMask', 'assets/pics/endscreen/avatarMask.jpg');
-
+		this.game.load.image('boxBorder', 'assets/pics/endscreen/boxborder.png');
+		this.game.load.image('clockEnd', 'assets/pics/endscreen/clock.png');
 
 		//UI elements
 		this.game.load.image('timebarbg', 'assets/pics/gameplay/fill-bg.png');
