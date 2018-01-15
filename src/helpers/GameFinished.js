@@ -14,7 +14,7 @@ class GameFinished{
 
 	} 
 
-	showCoins(cbt, cba, pn, piurl, puiurl, pb, pin, csil, cgol, ngm){
+	showCoins(cbt, cba, pn, piurl, puiurl, pb, pin, csil, cgol, ngm, uiu, uin){
 
 		
 		this.coinBonusType = cbt;
@@ -24,6 +24,9 @@ class GameFinished{
 		this.pointBonus = pb;
 		this.petUserImageUrl = puiurl;
 		this.petUserInitial = pin;
+
+		this.userInitial = uin;
+		this.userImageUrl = uiu;
 		
 		this.nextGame = ngm;
 		this.currentSilverStart = csil;
@@ -55,7 +58,7 @@ class GameFinished{
 	//	this.countxStep = 100/cbamax;
 		this.countxStep = 3;
 
-		//this.nextGame = 'Walk Donavan in 1 h 0 m'; //debug
+		//this.nextGame = 'Walk Donavan blablabla in 1 h 0 m '; //debug
 		//this.nextGame = 'Walk Coder in 6 h 0 m ';
 
 		if (this.nextGame != ""){
@@ -66,8 +69,8 @@ class GameFinished{
 			//this.nextGameHour = parseInt(arNextGame[3]);
 			//this.nextGameMinute = parseInt(arNextGame[5]);
 
-			this.nextGameSecond = 59;
-			this.nextGameMessage = this.nextGame + this.nextGameSecond + ' sec';
+			//this.nextGameSecond = 59;
+			//this.nextGameMessage = this.nextGame + this.nextGameSecond + ' sec';
 		}
 		
 
@@ -82,7 +85,9 @@ class GameFinished{
 		this.game.load.onLoadComplete.add(this.loadComplete, this);
 
 		this.game.load.image('petImage', piurl);
+
 		if (this.petUserImageUrl != "null")this.game.load.image('ownerImage', puiurl);
+		if (this.userImageUrl != "null")this.game.load.image('userImage', uiu);
 
 		this.game.load.start();
 	}
@@ -358,34 +363,10 @@ class GameFinished{
 
 			this.userAva.mask = this.userAvaMask;
 
-			this.userAva2 = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'ownerImage');
-			this.userAva2.anchor.setTo(0.5);
-			this.userAva2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
-			this.userAva2.fixedToCamera = true;
-			this.userAva2.cameraOffset.x = this.game.width/2 - 159 * GameData.scaleFactor;
-			this.userAva2.cameraOffset.y = 1305 * GameData.scaleFactor;
-			this.userAva2.alpha = 0;
-			this.userAva2.scale.setTo(0.21 * GameData.scaleFactor, 0.21 * GameData.scaleFactor);
-
-			this.userAva2Mask = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
-			this.userAva2Mask.beginFill(0xffffff);
-			this.userAva2Mask.drawCircle(0, 0, 81 * GameData.scaleFactor);
-			this.userAva2Mask.anchor.setTo(0.5, 0.5);
-			this.userAva2Mask.fixedToCamera = true;
-			this.userAva2Mask.cameraOffset.x = this.game.width/2 - 159 * GameData.scaleFactor;
-			this.userAva2Mask.cameraOffset.y = 1305 * GameData.scaleFactor;
-		
-			//console.log('sf ' + GameData.scaleFactor);
-
-			this.userAva2.mask = this.userAva2Mask;
-
 			var userAvaTween = this.game.add.tween(this.userAva.cameraOffset).to( { y: 825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
-			var userAva2Tween = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 			var userAvaMaskTween = this.game.add.tween(this.userAvaMask.cameraOffset).to( { y: 825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
-			var userAva2MaskTween = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 			var userAvaTween2 = this.game.add.tween(this.userAva).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
-			var userAva2Tween2 = this.game.add.tween(this.userAva2).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
-
+			
 
 		}else{//if user pic url is not available
 
@@ -421,7 +402,42 @@ class GameFinished{
 
 			this.userAva.mask = this.userAvaMask;
 
+			var userAvaTween = this.game.add.tween(this.userAva.cameraOffset).to( { y: 828 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+			var userAvaMaskTween = this.game.add.tween(this.userAvaMask.cameraOffset).to( { y: 825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+			var userAvaTween2 = this.game.add.tween(this.userAva).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
 
+		}
+
+
+		if (this.userImageUrl != "null"){
+
+			this.userAva2 = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'userImage');
+			this.userAva2.anchor.setTo(0.5);
+			this.userAva2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+			this.userAva2.fixedToCamera = true;
+			this.userAva2.cameraOffset.x = this.game.width/2 - 159 * GameData.scaleFactor;
+			this.userAva2.cameraOffset.y = 1305 * GameData.scaleFactor;
+			this.userAva2.alpha = 0;
+			this.userAva2.scale.setTo(0.21 * GameData.scaleFactor, 0.21 * GameData.scaleFactor);
+
+			this.userAva2Mask = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
+			this.userAva2Mask.beginFill(0xffffff);
+			this.userAva2Mask.drawCircle(0, 0, 81 * GameData.scaleFactor);
+			this.userAva2Mask.anchor.setTo(0.5, 0.5);
+			this.userAva2Mask.fixedToCamera = true;
+			this.userAva2Mask.cameraOffset.x = this.game.width/2 - 159 * GameData.scaleFactor;
+			this.userAva2Mask.cameraOffset.y = 1305 * GameData.scaleFactor;
+		
+			//console.log('sf ' + GameData.scaleFactor);
+
+			this.userAva2.mask = this.userAva2Mask;
+			
+
+			var userAva2Tween = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+			var userAva2MaskTween = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+			var userAva2Tween2 = this.game.add.tween(this.userAva2).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
+
+		}else{
 
 			this.userAva2BG = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 			this.userAva2BG.beginFill(0xB59CFF);
@@ -435,7 +451,7 @@ class GameFinished{
 			var userAvauserAva2BGTween = this.game.add.tween(this.userAva2BG.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 			var userAvauserAva2BGTween2 = this.game.add.tween(this.userAva2BG).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
 
-			this.userAva2 = this.game.add.bitmapText(0, 0, 'fontOduda', this.petUserInitial, 38);
+			this.userAva2 = this.game.add.bitmapText(0, 0, 'fontOduda', this.userInitial, 38);
 			this.userAva2.anchor.setTo(0.5);
 			this.userAva2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 			this.userAva2.fixedToCamera = true;
@@ -454,13 +470,12 @@ class GameFinished{
 			//console.log('sf ' + GameData.scaleFactor);
 
 			this.userAva2.mask = this.userAva2Mask;
+			
 
-			var userAvaTween = this.game.add.tween(this.userAva.cameraOffset).to( { y: 828 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 			var userAva2Tween = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 701 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
-			var userAvaMaskTween = this.game.add.tween(this.userAvaMask.cameraOffset).to( { y: 825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 			var userAva2MaskTween = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 698 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
-			var userAvaTween2 = this.game.add.tween(this.userAva).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
 			var userAva2Tween2 = this.game.add.tween(this.userAva2).to({alpha: 1}, 200, Phaser.Easing.Linear.None, true, 1500);
+
 		}
 		
 
@@ -506,18 +521,36 @@ class GameFinished{
 		
 		var btDoneEndTween = this.game.add.tween(this.btDoneEnd.cameraOffset).to( { y: 1150 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 		
-		var nextGameMessageComplete = "";
-		if (this.nextGame != "")nextGameMessageComplete = this.nextGameMessage;
+		//var nextGameMessageComplete = "";
+		//if (this.nextGame != "")nextGameMessageComplete = this.nextGameMessage;
 		 
-		this.nextGameText = this.game.add.bitmapText(0, 0, 'fontOduda', this.nextGameMessage, 30);
+		this.nextGameText = this.game.add.bitmapText(0, 0, 'fontOduda', this.nextGame, 30);
 		this.nextGameText.anchor.setTo(0, 0.5);
 		this.nextGameText.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 		this.nextGameText.fixedToCamera = true;
-		this.nextGameText.cameraOffset.x = this.game.width/2 - this.nextGameText.width/2;
+		this.nextGameText.cameraOffset.x = this.game.width/2 - this.nextGameText.width/2 + 15 * GameData.scaleFactor;
 		this.nextGameText.cameraOffset.y = 1830 * GameData.scaleFactor;
+		this.nextGameText.tint = 0xf5a623;
 
 		var nextGameTextTween = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1230 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
 		nextGameTextTween.onComplete.add(this.nextGameEndTween, this);
+
+		//console.log('nx ' + this.nextGameText.x);
+
+		this.clockEnd = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'clockEnd');
+		this.clockEnd.anchor.setTo(0.5);
+		this.clockEnd.scale.setTo(GameData.scaleFactor * 1,GameData.scaleFactor * 1);
+		this.clockEnd.fixedToCamera = true;
+		this.clockEnd.cameraOffset.x = this.nextGameText.cameraOffset.x - 20 * GameData.scaleFactor;
+		this.clockEnd.cameraOffset.y = 1825 * GameData.scaleFactor;
+		this.clockEnd.angle = -30;
+		this.clockEnd.alpha = 0;
+
+		if (this.nextGame != "")this.clockEnd.alpha = 1;
+
+		var clockEndTween = this.game.add.tween(this.clockEnd.cameraOffset).to( { y: 1225 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 1500);
+
+
 	}
 
 	
@@ -545,20 +578,30 @@ class GameFinished{
 
 			var userAvaTweenEnd = this.game.add.tween(this.userAva.cameraOffset).to( { y: 1380 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAvaMaskTweenEnd = this.game.add.tween(this.userAvaMask.cameraOffset).to( { y: 1380 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
-			var userAva2TweenEnd = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
-			var userAva2TweenEnd = this.game.add.tween(this.userAva2).to( { alpha: 0}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
-			var userAva2MaskTweenEnd = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+			
 		}else{
 			
 			var userAvauserAvaBGTweenEnd = this.game.add.tween(this.userAvaBG.cameraOffset).to( { y: 1380 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAvaTweenEnd = this.game.add.tween(this.userAva.cameraOffset).to( { y: 1383 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAvaMaskTweenEnd = this.game.add.tween(this.userAvaMask.cameraOffset).to( { y: 780 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 
+			
+
+		}
+
+		if (this.userImageUrl != "null"){
+
+			var userAva2TweenEnd = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+			var userAva2TweenEnd = this.game.add.tween(this.userAva2).to( { alpha: 0}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+			var userAva2MaskTweenEnd = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+
+		}else{
+
 			var userAvauserAva2BGTween = this.game.add.tween(this.userAva2BG.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAvauserAva2BGTween = this.game.add.tween(this.userAva2BG).to( { alpha: 0}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAva2Tween = this.game.add.tween(this.userAva2.cameraOffset).to( { y: 1308 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 			var userAva2MaskTween = this.game.add.tween(this.userAva2Mask.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
-
+			
 		}
 
 		var starEndTweenEnd = this.game.add.tween(this.starEnd.cameraOffset).to( { y: 1620 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
@@ -571,6 +614,7 @@ class GameFinished{
 		var newGoldSilverTextTweenEnd = this.game.add.tween(this.newSilverCoinText.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		var newGoldCoinTextTweenEnd = this.game.add.tween(this.newGoldCoinText.cameraOffset).to( { y: 1305 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		var nextGameTextTweenEnd = this.game.add.tween(this.nextGameText.cameraOffset).to( { y: 1830 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
+		var clockEndTweenEnd = this.game.add.tween(this.clockEnd.cameraOffset).to( { y: 1825 * GameData.scaleFactor}, 1000, Phaser.Easing.Sinusoidal.Out, true, 100);
 		
 		
     	rectBG2TweenEnd.onComplete.add(this.tweenFinished, this);
@@ -657,9 +701,14 @@ class GameFinished{
 		//console.log('t ' + this.nextGameTick);
 		//this.nextGameTimer = this.game.time.create(false);
 		this.game.time.events.repeat(Phaser.Timer.SECOND, 99999999, this.timerTick, this);
+
+		var clockEndTween2 = this.game.add.tween(this.clockEnd).to( { angle: 30}, 500, Phaser.Easing.Sinusoidal.Out, true, 0, -1);
+		clockEndTween2.yoyo(true, 0);
 	}
 
 	timerTick(){
+
+		return;
 
 		//console.log('time ' + this.game.time.now);
 

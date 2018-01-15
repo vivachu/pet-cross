@@ -95,7 +95,17 @@ class Main extends Phaser.State {
 
 	callBackEnd(data){
 
-		this.petUserImageUrl = "";
+		this.petUserImageUrl = "null";
+		this.petImageUrl = 'assets/pics/avatar/dummyPet3.jpg'; //for testing purpose
+
+		//data.pet.user.profileImage = null;
+		//data.pet.user.profileImage = 6405;
+		//data.pet.user.socialImageUrl = null;
+
+		//data.user.profileImage = null;
+		//data.user.socialImageUrl = null;
+		//data.user.profileImage = 6555;
+
 
 		if (data.pet.user.profileImage != null){
 
@@ -119,12 +129,13 @@ class Main extends Phaser.State {
 
 			this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
 
-		}else{
+		}
+		//else if (data.pet.user.initials != null){
 
 		//	console.log('pup 3');
-			this.petUserImageUrl = 'assets/pics/avatar/dummyPet3.jpg';
-			this.petImageUrl = 'assets/pics/avatar/dummyPet3.jpg';
-		}
+			//this.petUserImageUrl = 'assets/pics/avatar/dummyPet3.jpg'; //for testing purpose
+			//this.petImageUrl = 'assets/pics/avatar/dummyPet3.jpg'; //for testing purpose
+		//}
 
 		//this.petUserImageUrl = "null";
 		//this.petUserImageUrl = Backend.assetUrl + "images/" + data.pet.user.profileImage + "/medium.jpg";
@@ -134,11 +145,24 @@ class Main extends Phaser.State {
 		//this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
 		//console.log('pup');
 
+
+		this.userImageUrl = "null";
+
+		if (data.user.profileImage != null){
+
+			this.userImageUrl = Backend.assetUrl + "images/" + data.user.profileImage + "/medium.jpg";
+		}else if (data.user.socialImageUrl != null){
+
+			this.userImageUrl = data.user.socialImageUrl;
+			this.userImageUrl = this.userImageUrl.replace('height=100&width=100', 'height=500&width=500');
+
+		}
+
 		var nextGameMessage = "";
 		if (data.nextSession != null && data.nextSession.message != null)nextGameMessage = data.nextSession.message;
 		
 		this.gameFinished.showCoins(data.coinBonus.type, data.coinBonus.amount, data.pet.name, this.petImageUrl, this.petUserImageUrl, data.pointBonus, data.pet.user.initials, 
-			data.user.silverCoins, data.user.goldCoins, nextGameMessage);
+			data.user.silverCoins, data.user.goldCoins, nextGameMessage, this.userImageUrl, data.user.initials);
 		
 
 		//console.log('api end ' + data.coinBonus.type + ", " + data.coinBonus.amount + ", " + data.pet.name + ", " + this.petImageUrl + ", " + this.petUserImageUrl + ", " + data.pointBonus + ", " + data.pet.user.initials);
@@ -147,7 +171,7 @@ class Main extends Phaser.State {
 	callBackEndError(){
 
 		console.log('api call error');
-		this.gameFinished.showCoins('silver', 10, 'API error', 'assets/pics/avatar/dummyPet3.jpg', 'assets/pics/avatar/dummyPet3.jpg', 10, 'ER', 10, 10, 'walk err in 6 h 0 m');
+		this.gameFinished.showCoins('silver', 10, 'API error', 'assets/pics/avatar/dummyPet3.jpg', 'assets/pics/avatar/dummyPet3.jpg', 10, 'ER', 10, 10, 'walk err in 6 h 0 m', 'assets/pics/avatar/dummyPet3.jpg', 'ER');
 	}
 
 
