@@ -15,7 +15,8 @@ class Avatar extends Phaser.Sprite{
 		this.width=GameData.tileWidth;
 		this.height=GameData.tileWidth;  
 
- 		this.setpos(GameData.midOffset,GameData.totalLanes-10);
+ 		this.setpos(GameData.midOffset,GameData.totalLanes-8);
+ //		this.setpos(GameData.midOffset,300);
  		this.game.physics.enable(this, Phaser.Physics.ARCADE);
 		
 	    this.lastSafePosty = this.posy;

@@ -29,7 +29,8 @@ class Lane {
 		this.bonusOnLane = false;
 		for (var i=0;i<GameData.screenWidth;i++){
 			var obname="";
-			switch (this.lanes[this.line].type) {
+			var lanetype = this.lanes[this.line].type;
+			switch (lanetype) {
 				case 1: Math.random()>0.5?obname='grass1':obname='grass2';break; 	//rumput
 				case 2: obname='roadup';break; 										//batas rumput jalan
 				case 3: Math.random()>0.9?obname='roadcrack':obname='road';break; 	//jalan
@@ -44,9 +45,8 @@ class Lane {
 			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*144,0,144,144,'shade');
 		}
 
-		this.arah=1;
-		if (Math.random()>0.5) this.arah=-1;
-
+		if (GameData.arahLane==1) this.arah=-1; else this.arah=1;
+		GameData.arahLane=this.arah;
 		if (this.lanes[this.line].type==1){//grass
 			//batas
 	   		//this.drawToLane((GameData.leftOffset-1)*72,0,72,72,this.randomItem());
@@ -58,7 +58,7 @@ class Lane {
 		} else if (this.lanes[this.line].type==3){//road
 			var numTriggers = GameData.boundsWidth/GameData.tileWidth;		    
 		    var space=GameData.boundsWidth/numTriggers;
-			for(var i = 0; i<numTriggers ; i+=3){
+			for(var i = 0; i<numTriggers ; i+=4){
 				if (Math.random()>0.4){				
 					this.objects[this.numObjects] = new Car(
 														this.game,
@@ -76,6 +76,7 @@ class Lane {
 			var numTriggers = GameData.boundsWidth/space;
 		    for (var i=0;i<numTriggers-1;i++){
 				variant =  this.game.rnd.integerInRange(1,4);
+				if (i==0) variant=1;
 				if (variant<4){
 					this.objects[this.numObjects] = new Wood(
 														this.game,
@@ -93,8 +94,10 @@ class Lane {
 	}
 
 	drawFences(){
-		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,GameData.rightOffset);
-		var openingRight= openingLeft + this.game.rnd.integerInRange(1,4);
+		var mid=(GameData.rightOffset-GameData.leftOffset)/2;
+		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,mid-1);
+		var openingRight= openingLeft+this.game.rnd.integerInRange(1,2);
+		console.log(openingLeft + " == " + openingRight);
 		if (openingRight>GameData.rightOffset) openingRight=GameData.rightOffset;
 
 

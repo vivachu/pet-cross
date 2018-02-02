@@ -7,12 +7,12 @@ class Preload extends Phaser.State {
 		this.gameIsStarted = false;
 
 		//create loading bar
-	//	Backend.serviceCallGetPets(this);		
+		Backend.serviceCallGetPets(this);		
 
 		
 
 		//debug
-		this.callBackGetPets(null);
+	//	this.callBackGetPets(null);
 	}	
 
 	callBackGetPets(data){
