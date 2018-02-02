@@ -45,7 +45,8 @@ class Level extends Phaser.Sprite{
 		    	this.addLane(laneid,1,4);laneid++;
 		}
 	    while (ctr<GameData.totalLanes){
-	    	var laneType = this.game.rnd.integerInRange(1,3);
+	    	//var laneType = lGrass;//debug
+	    	var laneType = this.game.rnd.integerInRange(1,3); 
 	    	if (laneType==2 && prevLane==3) laneType=lGrass;
 	    	if (laneType==3 && prevLane==2) laneType=lGrass;
 
@@ -67,7 +68,7 @@ class Level extends Phaser.Sprite{
 				}else{
 			    	this.addLane(laneid,3);laneid++;ctr++;
 			    	this.addLane(laneid,4);laneid++;ctr++;
-			    	this.addLane(laneid,3);laneid++;ctr++;
+			    	this.addLane(laneid,3);laneid++;ctr++; 
 				}
 	    	}
 	    	if (laneType==lwater){
@@ -86,8 +87,9 @@ class Level extends Phaser.Sprite{
 	    for (var i=0;i<10;i++){
 		    	this.addLane(laneid,1,5);laneid++;
 		}
-	    GameData.totalLanes=laneid;
+	    GameData.totalLanes=laneid-1;
 
+		this.game.world.setBounds(0, 0, GameData.boundsWidth, GameData.totalLanes*GameData.tileWidth);
 		this.landGroup = this.game.add.group();
 		this.land= new Land(this.game, this);
 		
@@ -121,11 +123,11 @@ class Level extends Phaser.Sprite{
 
 
 ////////debug
-	/*		LogScreen.enableFPSCounter=true;
+			LogScreen.enableFPSCounter=true;
 			var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
-			this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,style0);
+			this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,this.style0);
 		    this.textConsole0.fixedToCamera = true;
-////////debug*/
+////////debug
 
 			this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
 			this.textLives = this.game.add.text(this.game.width/2, 100*GameData.scaleFactor, this.style0);
@@ -156,8 +158,14 @@ class Level extends Phaser.Sprite{
 
 	gameOver(){
 		//console.log("GAMEOVER");
-		GameData.gameState=3;
-		this.avatar.playAgain();
+		GameData.lives--;
+		if (GameData.lives==0){
+			GameData.totalLanes=0;
+			this.gameWin();
+		}else{
+			GameData.gameState=3;
+			this.avatar.playAgain();
+		}
 
 	}
 
@@ -169,11 +177,11 @@ class Level extends Phaser.Sprite{
 	//	if (GameData.gameState==1){
 			this.avatar.update();
 			this.avatar.bringToTop();
-			//var ln=Math.round(this.game.camera.y/GameData.tileWidth);
+			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
 			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
-			//this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy;
-			//this.textConsole0.text = 'fps : ' + this.game.time.fps;
+			//this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy + " , " +this.game.camera.y;
+			this.textConsole0.text = 'fps : ' + this.game.time.fps;
 			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
 			this.textLives.text = GameData.playDistance;
 			this.land.checkLane();

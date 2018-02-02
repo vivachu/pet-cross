@@ -9,7 +9,7 @@ class TimeBar extends Phaser.Sprite{
 		this.game = game;
 		this.main = main;
 		this.game.add.existing(this);
-
+ 
 
 
 		this.timebarbg = game.add.sprite(this.game.width/2,100*GameData.scaleFactor, 'timebarbg'); 
