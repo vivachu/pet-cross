@@ -73,7 +73,7 @@ class Main extends Phaser.State {
 		//this.gameFinished = new GameFinished(this.game, this);
 		//this.convertTimeToCoin();
 
-		this.initGameFinished();
+		//this.initGameFinished();
 	}
 
 	stopGame(){
