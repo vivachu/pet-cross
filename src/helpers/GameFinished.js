@@ -344,12 +344,19 @@ class GameFinished{
 
 			this.userAva = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'ownerImage');
 			this.userAva.anchor.setTo(0.5);
-			this.userAva.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+
+			var userAvaFactor = 1;
+			if (this.userAva.width < 500){
+
+				userAvaFactor = 500/this.userAva.width;
+			}
+
+
 			this.userAva.fixedToCamera = true;
 			this.userAva.cameraOffset.x = this.game.width/2 - 90 * GameData.scaleFactor;
 			this.userAva.cameraOffset.y = 1425 * GameData.scaleFactor;
 			this.userAva.alpha = 0;
-			this.userAva.scale.setTo(0.21 * GameData.scaleFactor, 0.21 * GameData.scaleFactor);
+			this.userAva.scale.setTo(0.21 * GameData.scaleFactor * userAvaFactor);
 
 			this.userAvaMask = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 			this.userAvaMask.beginFill(0xffffff);
@@ -413,12 +420,18 @@ class GameFinished{
 
 			this.userAva2 = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'userImage');
 			this.userAva2.anchor.setTo(0.5);
-			this.userAva2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+
+			var userAvaFactor2 = 1;
+			if (this.userAva2.width < 500){
+
+				userAvaFactor2 = 500/this.userAva2.width;
+			}
+
 			this.userAva2.fixedToCamera = true;
 			this.userAva2.cameraOffset.x = this.game.width/2 - 159 * GameData.scaleFactor;
 			this.userAva2.cameraOffset.y = 1305 * GameData.scaleFactor;
 			this.userAva2.alpha = 0;
-			this.userAva2.scale.setTo(0.21 * GameData.scaleFactor, 0.21 * GameData.scaleFactor);
+			this.userAva2.scale.setTo(0.21 * GameData.scaleFactor * userAvaFactor2);
 
 			this.userAva2Mask = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 			this.userAva2Mask.beginFill(0xffffff);

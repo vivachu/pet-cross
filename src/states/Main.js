@@ -96,15 +96,18 @@ class Main extends Phaser.State {
 	callBackEnd(data){
 
 		this.petUserImageUrl = "null";
-		this.petImageUrl = 'assets/pics/avatar/dummyPet3.jpg'; //for testing purpose
+		//this.petImageUrl = 'assets/pics/avatar/dummyPet3.jpg'; //for testing purpose
+		this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
+
 
 		//data.pet.user.profileImage = null;
 		//data.pet.user.profileImage = 6405;
-		//data.pet.user.socialImageUrl = null;
+	//	data.pet.user.socialImageUrl = null;
 
 		//data.user.profileImage = null;
 		//data.user.socialImageUrl = null;
 		//data.user.profileImage = 6555;
+		//data.pet.user.socialImageUrl = 'https://graph.facebook.com/v2.7/10213976261738231/picture?height=100&width=100';
 
 
 		if (data.pet.user.profileImage != null){
@@ -114,7 +117,7 @@ class Main extends Phaser.State {
 		//	console.log('pup 1');
 			this.petUserImageUrl = Backend.assetUrl + "images/" + data.pet.user.profileImage + "/medium.jpg";
 
-			this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
+			//this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
 
 			//testing other possibilities:
 			//this.petUserImageUrl = "null";
@@ -124,10 +127,22 @@ class Main extends Phaser.State {
 		}else if (data.pet.user.socialImageUrl != null){
 
 			//console.log('pup 2');
-			this.petUserImageUrl = data.pet.user.socialImageUrl;
-			this.petUserImageUrl = this.petUserImageUrl.replace('height=100&width=100', 'height=500&width=500');
+			//this.petUserImageUrl = data.pet.user.socialImageUrl;
+			//this.petUserImageUrl = this.petUserImageUrl.replace('height=100&width=100', 'height=500&width=500');
 
-			this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
+			//this.petImageUrl = Backend.assetUrl + "images/" + data.pet.profileImage + "/medium.jpg";
+
+			if (data.pet.user.socialImageUrl.indexOf('picture?height=') > 0){
+
+				var arPetUserImageUrl = data.pet.user.socialImageUrl.split("picture?height=");
+
+				this.petUserImageUrl = arPetUserImageUrl[0] + 'picture?height=500&width=500';
+			}else{
+
+				this.petUserImageUrl = data.pet.user.socialImageUrl;
+			}
+
+			
 
 		}
 		//else if (data.pet.user.initials != null){
@@ -153,8 +168,18 @@ class Main extends Phaser.State {
 			this.userImageUrl = Backend.assetUrl + "images/" + data.user.profileImage + "/medium.jpg";
 		}else if (data.user.socialImageUrl != null){
 
-			this.userImageUrl = data.user.socialImageUrl;
-			this.userImageUrl = this.userImageUrl.replace('height=100&width=100', 'height=500&width=500');
+			//this.userImageUrl = data.user.socialImageUrl;
+			//this.userImageUrl = this.userImageUrl.replace('height=100&width=100', 'height=500&width=500');
+
+			if (data.user.socialImageUrl.indexOf('picture?height=') > 0){
+
+				var arUserImageUrl = data.user.socialImageUrl.split("picture?height=");
+
+				this.userImageUrl = arUserImageUrl[0] + 'picture?height=500&width=500';
+			}else{
+
+				this.userImageUrl = data.user.socialImageUrl;
+			}
 
 		}
 
