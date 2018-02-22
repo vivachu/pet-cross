@@ -12,11 +12,10 @@ class Preload extends Phaser.State {
 		
 
 		//debug
-	//	this.callBackGetPets(null);
+//		this.callBackGetPets(null);
 	}	
 
 	callBackGetPets(data){
-
 
 		if (data != null){
 
@@ -136,14 +135,16 @@ class Preload extends Phaser.State {
 		this.game.load.image('coin', 'assets/pics/gameplay/coin.png');
 		this.game.load.image('flower', 'assets/pics/gameplay/flower.png');
 		this.game.load.image('rock1', 'assets/pics/gameplay/rock-1.png');
-		this.game.load.image('rock2', 'assets/pics/gameplay/rock-2.png');
 		this.game.load.image('ticket', 'assets/pics/gameplay/ticket.png');
 		this.game.load.image('tree', 'assets/pics/gameplay/tree.png');
 		this.game.load.image('bush', 'assets/pics/gameplay/bush.png');
 
 
 		//Character Asset 
-		this.game.load.image('char1', 'assets/pics/gameplay/char1.png');
+		this.game.load.spritesheet('move1', 'assets/pics/gameplay/move-1.png',144,144,4);
+		this.game.load.image('move2', 'assets/pics/gameplay/move-2.png');
+		this.game.load.image('move3', 'assets/pics/gameplay/move-3.png');
+
 
 
 
@@ -185,6 +186,8 @@ class Preload extends Phaser.State {
 		this.game.load.audio('swipe', 'assets/sound/swipesfx.mp3');	
 		this.game.load.audio('coinAdd', 'assets/sound/coinAdd.mp3');
 		this.game.load.audio('coinFin', 'assets/sound/coinFin.mp3');
+		this.game.load.audio('move', 'assets/sound/move.mp3');
+		this.game.load.audio('dead', 'assets/sound/dead.mp3');
 
 
 		
@@ -201,10 +204,21 @@ class Preload extends Phaser.State {
 		this.game.load.image('clockEnd', 'assets/pics/endscreen/clock.png');
 
 		//UI elements
-		this.game.load.image('timebarbg', 'assets/pics/gameplay/fill-bg.png');
-		this.game.load.image('timebar', 'assets/pics/gameplay/bar-fill.png');
+//		this.game.load.image('timebarbg', 'assets/pics/gameplay/fill-bg.png');
+//		this.game.load.image('timebar', 'assets/pics/gameplay/bar-fill.png');
 		this.game.load.image('btPause', 'assets/pics/button-pause-up.png');
 
+
+		this.game.load.image('iconlive', 'assets/pics/gameplay/icon-live.png');
+		this.game.load.image('live1', 'assets/pics/gameplay/live1.png');
+		this.game.load.image('live2', 'assets/pics/gameplay/live2.png');
+		this.game.load.image('live3', 'assets/pics/gameplay/live3.png');
+
+		//DistanceBar Asset
+		this.game.load.image('dbborder', 'assets/pics/progressbar-border.png');
+		this.game.load.image('dbfill', 'assets/pics/progressbar-fill.png');
+		this.game.load.image('dbmarker', 'assets/pics/progress-bar-marker.png');
+		this.game.load.image('dbcounter', 'assets/pics/progressbar-counter.png');
 
 
 		//Avatar
@@ -246,8 +260,6 @@ class Preload extends Phaser.State {
  	loadComplete() {
 
 		if (this.gameIsStarted == true)return; //hack because when loading pet image from url on game finished, it still comeback here again
-
-		console.log('game started');
 		this.game.state.start("GameTitle");
 		this.gameIsStarted = true;
 
