@@ -97,7 +97,6 @@ class Lane {
 		var mid=(GameData.rightOffset-GameData.leftOffset)/2;
 		var openingLeft = this.game.rnd.integerInRange(GameData.leftOffset,mid-1);
 		var openingRight= openingLeft+this.game.rnd.integerInRange(1,2);
-		console.log(openingLeft + " == " + openingRight);
 		if (openingRight>GameData.rightOffset) openingRight=GameData.rightOffset;
 
 
@@ -145,9 +144,9 @@ class Lane {
 //		    	}
 				if (i>=GameData.leftOffset && i<=GameData.rightOffset){
 					if (arrayContent!='flower') this.lanes[this.line].rows[ctr]=arrayContent;
-					if (arrayContent==undefined){
+/*					if (arrayContent==undefined){
 						this.addBonus(i*144);
-					}
+					}*/
 					ctr++;
 				}
 

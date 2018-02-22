@@ -8,7 +8,7 @@ class SoundMan {
 	create (game){
 		this.game = game;
 
-		this.music = this.game.add.audio('bgMusic', 0.7, true);
+		this.music = this.game.add.audio('bgMusic', 0.3, true);
 		this.music.allowMultiple = false;
 
 
@@ -17,37 +17,17 @@ class SoundMan {
 		this.sfxTap.addMarker('tap2', 0.234, 0.208);
 		this.sfxTap.allowMultiple = true;
 
-		this.sfxSwipe = this.game.add.audio('swipe', 0.3);
-		this.sfxSwipe.allowMultiple = true;
+		this.sfxMove = this.game.add.audio('move', 2.2);
+		this.sfxMove.allowMultiple = true;
 
-		this.sfxCollide = this.game.add.audio('obstacleHit');
-		this.sfxCollide.allowMultiple = true;
-
-		this.sfxFeather = this.game.add.audio('feather');
-		this.sfxFeather.allowMultiple = true;
-
-		this.sfxFramePhoto = this.game.add.audio('framephoto');
-		this.sfxFramePhoto.allowMultiple = true;
-
-		this.sfxGlass = this.game.add.audio('glass');
-		this.sfxGlass.allowMultiple = true;
-
-		this.sfxPillow = this.game.add.audio('pillow');
-		this.sfxPillow.allowMultiple = true;
-
-		this.sfxSponge = this.game.add.audio('sponge');
-		this.sfxSponge.allowMultiple = true;
-
-		this.sfxTrash = this.game.add.audio('trash');
-		this.sfxTrash.allowMultiple = true;
-
-		this.sfxVacuum = this.game.add.audio('vacuum');
-		this.sfxVacuum.allowMultiple = true;
+		this.sfxDead = this.game.add.audio('dead', 1.2);
+		this.sfxDead.allowMultiple = true;
 
 		this.sfxCoinAdd = this.game.add.audio('coinAdd', 0.6);
 		this.sfxCoinAdd.allowMultiple = true;
 
 		this.sfxCoinFin = this.game.add.audio('coinFin', 0.4);
+		this.sfxCoinFin.allowMultiple = true;
 
 		//this.music.play();
 		//this.music.pause();
@@ -56,18 +36,11 @@ class SoundMan {
 
 
 	playEffect(effect){
-		if (effect=='feather') this.sfxFeather.play();
-		if (effect=='paper') this.sfxFeather.play();
-		if (effect=='flower') this.sfxFeather.play();
-		if (effect=='framephoto') this.sfxFramePhoto.play();
-		if (effect=='glass') this.sfxGlass.play();
-		if (effect=='vase') this.sfxGlass.play();
-		if (effect=='pillow') this.sfxPillow.play();
-		if (effect=='sponge') this.sfxSponge.play();
-		if (effect=='trash') this.sfxTrash.play();
-		if (effect=='vacuum') this.sfxVacuum.play();
+		if (effect == 'move')this.sfxMove.play();
+		if (effect == 'dead')this.sfxDead.play();
 		if (effect == 'coinAdd')this.sfxCoinAdd.play();
 		if (effect == 'coinFin')this.sfxCoinFin.play();
+
 	}
 
 	playBgWin(){

@@ -12,25 +12,33 @@ class TimeBar extends Phaser.Sprite{
  
 
 
-		this.timebarbg = game.add.sprite(this.game.width/2,100*GameData.scaleFactor, 'timebarbg'); 
+		this.timebarbg = game.add.sprite(this.game.width-(60*GameData.scaleFactor),this.game.height-700*GameData.scaleFactor, 'dbborder'); 
  		this.timebarbg.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
- 		this.timebarbg.anchor.setTo(0.5,0.5);
+ 		this.timebarbg.anchor.setTo(0.5,0);
  		this.timebarbg.fixedToCamera = true;
- 		//this.timebarbg.x = this.game.width-10;
-		this.timebar = game.add.sprite(this.timebarbg.x-(300*GameData.scaleFactor),this.timebarbg.y, 'timebar');
-		this.barwidth=this.timebar.width; 		
- 		this.timebar.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
- 		this.timebar.anchor.setTo(0,0.5);
- 		this.timebar.fixedToCamera = true;
+		this.timebar = game.add.sprite(0,10, 'dbfill');
+		this.barwidth=this.timebar.width;
+		this.barheight=this.timebar.height; 		
+ 		this.timebar.anchor.setTo(0.5,0);
+ 		this.timebarbg.addChild(this.timebar);
 
     	this.prevTime = this.game.time.totalElapsedSeconds() ; 
     	this.gameTime = 0; 
     	this.totalSeconds = 0;
     	this.pause = true;
 
-    	this.cropRect = new Phaser.Rectangle(0, 0, this.barwidth,100);
+    	this.cropRect = new Phaser.Rectangle(0, 0, this.barwidth,this.barheight);
     	this.timebar.crop(this.cropRect);
- 
+ 		this.timebar.origpos=this.timebar.position;
+
+		this.marker = game.add.sprite(0,10, 'dbmarker');
+		this.marker.anchor.setTo(0.5,0.5);
+		this.timebarbg.addChild(this.marker);
+
+
+
+
+
 	}
 
 
@@ -38,6 +46,8 @@ class TimeBar extends Phaser.Sprite{
 	Start(){
 		this.pause = false;
  		this.timebar.visible=true;
+
+
 	}
 
 	Pause(){
@@ -65,6 +75,18 @@ class TimeBar extends Phaser.Sprite{
 	update(){
 		if (this.pause) return;
 
+
+			this.cropRect.y = this.barheight-(GameData.playDistance/GameData.totalLanes) * this.barheight;		
+			this.timebar.y=this.cropRect.y+10;
+			this.marker.y=this.timebar.y;
+	    	this.timebar.updateCrop();
+	    	if (GameData.playDistance>=GameData.totalLanes-1) {
+	    		this.main.initGameFinished();	
+	    		this.pause=true;
+	    	}
+
+
+/*			
 			if (Math.round(this.game.time.totalElapsedSeconds()) > this.prevTime && GameData.gameState==1){
 				this.prevTime = Math.round(this.game.time.totalElapsedSeconds());
 				this.gameTime ++ ;
@@ -78,7 +100,7 @@ class TimeBar extends Phaser.Sprite{
 		    	}
 
 			}
-
+*/
 
 	}
 

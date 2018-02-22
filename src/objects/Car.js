@@ -52,7 +52,7 @@ class Car extends Phaser.Sprite{
 
 
 	collisionHandler(){
-		var yy=Math.round(this.level.avatar.y/GameData.tileWidth);
+		var yy=Math.round((this.level.avatar.y-this.level.avatar.midOffset)/GameData.tileWidth);
 		if (yy == this.lane.line){
 			this.level.gameOver();	
 		}

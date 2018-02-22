@@ -1,6 +1,7 @@
 import GameData from 'helpers/GameData'
 import GameKey from 'helpers/GameKey'
 import GameTouch from 'helpers/GameTouch'
+import SoundMan from 'helpers/SoundMan';
 
 
 class Avatar extends Phaser.Sprite{
@@ -14,6 +15,9 @@ class Avatar extends Phaser.Sprite{
 		
 		this.width=GameData.tileWidth;
 		this.height=GameData.tileWidth;  
+		this.anchor.setTo(0.5,0.5);
+    	this.midOffset=GameData.tileWidth*.5;
+    	this.defaultScale=this.scale.x;
 
  		this.setpos(GameData.midOffset,GameData.totalLanes-8);
  //		this.setpos(GameData.midOffset,300);
@@ -43,12 +47,13 @@ class Avatar extends Phaser.Sprite{
 
     	this.missFlag=0;
     	this.keceburCounter=0;
+    	this.trail=null;
 	}
 
 	setpos(xtile,ytile){
 		this.posx=xtile;
 		this.posy=ytile;
-		this.position.setTo(GameData.tileWidth*xtile,GameData.tileWidth*ytile);
+		this.position.setTo(GameData.tileWidth*xtile+this.midOffset,GameData.tileWidth*ytile+this.midOffset);
 	}
 
 	move(arah){
@@ -56,25 +61,15 @@ class Avatar extends Phaser.Sprite{
 		if (arah=='left' && this.posx<GameData.rightOffset){
 			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset+1] != undefined) return;
    	    	this.posx++;
- 	    	GameKey.keyfree=false;
- 	    	if (this.rideObject) this.rideObject.ridden=false;
- 	    	this.rideObject = null;
- 	    	this.rideOffset = 0;
- 	    	this.ready=false;
- 	    	this.inWater=false;
-   	    	this.game.add.tween(this).to( { x: this.x+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
+ 	    	this.moveAnim(this.x+this.jumpPower,this.posy*GameData.tileWidth+this.midOffset)
 		}
+		
 		if (arah=='right' && this.posx>GameData.leftOffset){
 			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset-1] != undefined) return;
    	    	this.posx--;
- 	    	GameKey.keyfree=false;
- 	    	if (this.rideObject) this.rideObject.ridden=false;
- 	    	this.rideObject = null;
- 	    	this.rideOffset = 0;
- 	    	this.ready=false;
- 	    	this.inWater=false;
-			this.game.add.tween(this).to( { x: this.x-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
+ 	    	this.moveAnim(this.x-this.jumpPower,this.posy*GameData.tileWidth+this.midOffset)
 		}
+
 		if (arah=='jump'){
 			if (this.level.lanes[this.posy-1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy--;
@@ -82,33 +77,44 @@ class Avatar extends Phaser.Sprite{
   	    		//win!
   	    		this.level.gameWin();
   	    	}
- 	    	GameKey.keyfree=false;
- 	    	if (this.rideObject) this.rideObject.ridden=false;
- 	    	this.rideObject = null;
- 	    	this.rideOffset = 0;
- 	    	this.ready=false;
- 	    	this.inWater=false;
- 	    	this.posx=Math.round(this.x/GameData.tileWidth);
-   	    	this.game.add.tween(this).to( { x:this.posx*GameData.tileWidth, y: this.y-this.jumpPower}, this.jumpSpeed, Phaser.Easing.Back.Out, true).onComplete.add(this.tweenFinished, this);
+ 	    	//this.posx=Math.round(this.x/GameData.tileWidth);
+    		this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y-this.jumpPower)
 		}
 		if (arah=='down'){
 			if (this.level.lanes[this.posy+1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy++;
+ 	    	//this.posx=Math.round(this.x/GameData.tileWidth);
+    		this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y+this.jumpPower)
+		}
+
+	}
+
+
+	moveAnim(xStep,yStep){
+
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
  	    	this.rideOffset = 0;
  	    	this.ready=false;
  	    	this.inWater=false;
- 	    	this.posx=Math.round(this.x/GameData.tileWidth);
-  	    	this.game.add.tween(this).to( { x:this.posx*GameData.tileWidth, y: this.y+this.jumpPower}, this.jumpSpeed, Phaser.Easing.Bounce.Out, true).onComplete.add(this.tweenFinished, this);
-		}
+ 	    	this.scale.setTo(this.defaultScale,this.defaultScale);
+			SoundMan.playEffect('move');
+			console.log("sts2 " + this.scale + " , " + this.defaultScale);
+
+   	    	this.jumptween = this.game.add.tween(this.scale).to( { x:this.defaultScale*1.5, y:this.defaultScale*1.5}, this.jumpSpeed, Phaser.Easing.Back.Out, true);
+   	    	this.jumptween.yoyo(true,10);
+			this.game.add.tween(this).to( { x: xStep, y: yStep}, this.jumpSpeed, Phaser.Easing.Bounce.InOut, true).onComplete.add(this.tweenFinished, this);
 
 	}
 
 	tweenFinished(){
-		GameKey.keyfree=true;
+		GameKey.keyfree=true;  
+		
+		console.log("sts3 " + this.level.avatar.scale + " , " + this.scale);
+ 	    	this.scale.setTo(this.defaultScale,this.defaultScale);
 		this.ready=true;
+    	this.trail.updatePos();
 		this.checkLane();
 	}
 
@@ -121,6 +127,7 @@ class Avatar extends Phaser.Sprite{
 	}
 
 	missFinished(){
+ 	   	this.scale.setTo(this.defaultScale,this.defaultScale);
 		GameData.gameState=1;
 	}
 
@@ -149,9 +156,12 @@ class Avatar extends Phaser.Sprite{
 		if (this.missFlag==1){
 			this.missFlag=0;
 			//onsole.log("move to .lastSafePost : " + this.lastSafePostx + ", " + this.lastSafePosty);
+	 	  	this.alpha=1;
+	 	  	this.blink = this.game.add.tween(this).to( {alpha:0 }, 100, Phaser.Easing.Linear.None, true,0,4,true);
+
 			this.posx=this.lastSafePostx;
 			this.posy=this.lastSafePosty;
-	 	  	this.game.add.tween(this).to( { x: GameData.tileWidth*this.lastSafePostx, y: GameData.tileWidth*this.lastSafePosty}, 1000, Phaser.Easing.Linear.None, true).onComplete.add(this.missFinished, this);
+			this.game.add.tween(this).to( { x: GameData.tileWidth*this.lastSafePostx+this.midOffset, y: GameData.tileWidth*this.lastSafePosty+this.midOffset}, 1000, Phaser.Easing.Linear.None, true,1000).onComplete.add(this.missFinished, this);
 		}
 		if (GameData.gameState==1){
 			GameKey.update();

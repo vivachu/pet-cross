@@ -3,7 +3,11 @@ import LogScreen from 'helpers/LogScreen'
 import SoundMan from 'helpers/SoundMan'
 import Land from 'objects/Land';
 import Avatar from 'objects/Avatar';
+import AvatarTrail from 'objects/AvatarTrail';
 import TimeBar from 'objects/TimeBar'; 
+import ProgressCounter from 'objects/ProgressCounter'; 
+import Lives from 'objects/Lives'; 
+
 
 class Level extends Phaser.Sprite{
 
@@ -107,16 +111,18 @@ class Level extends Phaser.Sprite{
 
 
 		this.avatar = new Avatar(this.game, this);
-		//this.game.camera.follow(this.avatar);
-		this.game.camera.focusOnXY(this.avatar.x, this.avatar.y-(200*GameData.scaleFactor));
+		this.avatarTrail = new AvatarTrail(this.game, this, this.avatar);
+		this.avatar.trail=this.avatarTrail;
 
+		this.game.camera.focusOnXY(this.avatar.x, this.avatar.y-(200*GameData.scaleFactor));
 		this.game.camera.follow(this.avatar.tofollow, Phaser.Camera.FOLLOW_LOCKON, 0.03, 0.03);
-//		this.game.camera.bounds= new Phaser.Rectangle(this.game.width/2,0,this.game.width,12000);
 
 		var dWidth=this.game.width-(150*GameData.scaleFactor);
 		var dHeight=this.game.height*.5;
 
 		this.main.timeBar = new TimeBar(this.game, this.main);
+		this.main.progressCounter = new ProgressCounter(this.game, this.main);
+		this.main.lives = new Lives(this.game, this.main);
 		GameData.coinCollected = 0;
 		GameData.ticketCollected = 0;
 
@@ -129,10 +135,11 @@ class Level extends Phaser.Sprite{
 		    this.textConsole0.fixedToCamera = true;
 ////////debug
 
-			this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
+	/*		this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
 			this.textLives = this.game.add.text(this.game.width/2, 100*GameData.scaleFactor, this.style0);
 			this.textLives.anchor.setTo(0.5,0.5);
 		    this.textLives.fixedToCamera = true;
+		    */
 
 
 	}
@@ -158,7 +165,9 @@ class Level extends Phaser.Sprite{
 
 	gameOver(){
 		//console.log("GAMEOVER");
+		SoundMan.playEffect('dead');
 		GameData.lives--;
+		this.main.lives.setValue();
 		if (GameData.lives==0){
 			GameData.totalLanes=0;
 			this.gameWin();
@@ -181,9 +190,9 @@ class Level extends Phaser.Sprite{
 			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
 			//this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy + " , " +this.game.camera.y;
-			this.textConsole0.text = 'fps : ' + this.game.time.fps;
+			//this.textConsole0.text = 'fps : ' + this.game.time.fps;
 			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
-			this.textLives.text = GameData.playDistance;
+			//this.textLives.text = GameData.playDistance;
 			this.land.checkLane();
 	//	}
 	}
