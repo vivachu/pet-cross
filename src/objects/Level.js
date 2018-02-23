@@ -129,10 +129,10 @@ class Level extends Phaser.Sprite{
 
 
 ////////debug
-			LogScreen.enableFPSCounter=true;
-			var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
-			this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,this.style0);
-		    this.textConsole0.fixedToCamera = true;
+	//		LogScreen.enableFPSCounter=true;
+	//		var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
+	//		this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,this.style0);
+	//	    this.textConsole0.fixedToCamera = true;
 ////////debug
 
 	/*		this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
