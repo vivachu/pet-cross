@@ -10,9 +10,15 @@ class ProgressCounter extends Phaser.Sprite{
 		this.scale.setTo(GameData.scaleFactor);
 		this.fixedToCamera = true;
 		this.pause = true;
-		this.stext = this.game.add.text(60,75, "00:00",  {font: "24px Arial Bold", fill: "#ffffff", align: "center"});
-    	this.stext.anchor.set(0.5);
-    	this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+//		this.stext = this.game.add.text(60,75, "00:00",  {font: "24px Arial Bold", fill: "#ffffff", align: "center"});
+//    	this.stext.anchor.set(0.5);
+//    	this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+
+    	
+    	this.stext  = this.game.add.bitmapText(60, 75, 'fontOduda', '00:00', 20);
+		this.stext.anchor.setTo(0.5);
+		this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+
 
     	this.addChild(this.stext);
     	this.prevTime = this.game.time.totalElapsedSeconds() ; 

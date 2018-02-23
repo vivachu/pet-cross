@@ -78,13 +78,21 @@ class Avatar extends Phaser.Sprite{
   	    		this.level.gameWin();
   	    	}
  	    	//this.posx=Math.round(this.x/GameData.tileWidth);
-    		this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y-this.jumpPower)
+    		if (this.level.lanes[this.posy].type==7){//is in water 
+	    		this.moveAnim(this.x,this.y-this.jumpPower)
+    		}else{
+    			this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y-this.jumpPower)
+    		}
 		}
 		if (arah=='down'){
 			if (this.level.lanes[this.posy+1].rows[this.posx-GameData.leftOffset] != undefined) return;
   	    	this.posy++;
  	    	//this.posx=Math.round(this.x/GameData.tileWidth);
-    		this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y+this.jumpPower)
+    		if (this.level.lanes[this.posy].type==7){//is in water 
+	    		this.moveAnim(this.x,this.y+this.jumpPower)
+    		}else{
+    			this.moveAnim(this.posx*GameData.tileWidth+this.midOffset,this.y+this.jumpPower)
+    		}
 		}
 
 	}
@@ -100,8 +108,6 @@ class Avatar extends Phaser.Sprite{
  	    	this.inWater=false;
  	    	this.scale.setTo(this.defaultScale,this.defaultScale);
 			SoundMan.playEffect('move');
-			console.log("sts2 " + this.scale + " , " + this.defaultScale);
-
    	    	this.jumptween = this.game.add.tween(this.scale).to( { x:this.defaultScale*1.5, y:this.defaultScale*1.5}, this.jumpSpeed, Phaser.Easing.Back.Out, true);
    	    	this.jumptween.yoyo(true,10);
 			this.game.add.tween(this).to( { x: xStep, y: yStep}, this.jumpSpeed, Phaser.Easing.Bounce.InOut, true).onComplete.add(this.tweenFinished, this);
@@ -110,9 +116,7 @@ class Avatar extends Phaser.Sprite{
 
 	tweenFinished(){
 		GameKey.keyfree=true;  
-		
-		console.log("sts3 " + this.level.avatar.scale + " , " + this.scale);
- 	    	this.scale.setTo(this.defaultScale,this.defaultScale);
+    	this.scale.setTo(this.defaultScale,this.defaultScale);
 		this.ready=true;
     	this.trail.updatePos();
 		this.checkLane();

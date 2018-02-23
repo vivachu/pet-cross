@@ -14,7 +14,7 @@ class Lane {
 		this.line=j;
 		this.y=j*GameData.tileWidth;
 		this.lanes=this.land.level.lanes;
-    	this.laneSpeed=this.game.rnd.integerInRange(2,8)*GameData.scaleFactor;
+    	this.laneSpeed=this.game.rnd.integerInRange(4,8)*GameData.scaleFactor;
     	this.totMovingObjects = this.game.rnd.integerInRange(5,10);
 		this.columns = new Array();
 		this.objects = new Array();
