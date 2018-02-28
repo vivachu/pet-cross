@@ -19,6 +19,8 @@ class GameStart{
 
 	 	this.title = game.add.sprite(this.game.world.centerX,this.game.world.centerY, 'titlepic');
 	 	this.title.anchor.setTo(0.5,0.5);
+//	 	this.title.width = this.game.width;
+//	 	this.title.height = this.game.height;
  		this.title.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 	 	this.title.fixedToCamera = true;
 //	 	this.title.cameraOffset.y=-200;

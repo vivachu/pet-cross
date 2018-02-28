@@ -58,7 +58,8 @@ See [gulpfile.md](https://github.com/vivachu/pets-minigames/gulpfile.md)
 - Changing Drawing algo , from 72px tile to 144px tile
 
 
-
+- remove pause button
+- shorten the playing length from 200 lines to 100
 
 ## Contributing
 

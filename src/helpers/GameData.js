@@ -30,7 +30,7 @@ class GameData {
 
 		this.leftPixelOffset = this.leftOffset*this.tileWidth-this.tileWidth;
 		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;
-		this.totalLanes = 200;
+		this.totalLanes = 100;
 		this.playDistance = 0;//distance travelled in lanes
 		this.playTime = 60;// length of play in sec
 		this.coinCollected = 4;
@@ -38,6 +38,7 @@ class GameData {
 		this.ticketOnMap = 0;
 		this.arahLane=1;
 		this.lives=3;
+		this.lose=false;
 
 	    //apiUrl
 	    if (this.getUrlVars()["apiUrl"] != null){

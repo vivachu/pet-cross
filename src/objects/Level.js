@@ -170,6 +170,7 @@ class Level extends Phaser.Sprite{
 		this.main.lives.setValue();
 		if (GameData.lives==0){
 			GameData.totalLanes=0;
+			GameData.lose=true;
 			this.gameWin();
 		}else{
 			GameData.gameState=3;
