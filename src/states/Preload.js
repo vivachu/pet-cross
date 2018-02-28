@@ -161,6 +161,8 @@ class Preload extends Phaser.State {
 		this.game.load.image('buttonDoneDown', 'assets/pics/button-done-down.png');
 		this.game.load.image('buttonDoneUp', 'assets/pics/button-done-up.png');
 		this.game.load.image('imgGreatJob', 'assets/pics/great-job-banner.png');
+		this.game.load.image('imgGameOver', 'assets/pics/ribbon-gameover.png');
+
 		this.game.load.image('rays', 'assets/pics/rays.png');
 		this.game.load.image('gotCoins', 'assets/pics/text-you-got-coin.png');
 		this.game.load.image('goldCoin', 'assets/pics/coin-gold.png');
