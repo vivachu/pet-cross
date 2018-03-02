@@ -7,11 +7,12 @@ class GameOver{
 	constructor(game,main){
 		this.game = game;
 		this.main = main;
-		//this.startEndingScene();
 	} 
 
 	
-	startEndingScene(){
+	startGameOverScene(){
+
+		console.log("startEndingScene");
 		this.rectBG = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 		this.rectBG.beginFill(0x000000, 1);
 		this.rectBG.drawRect(0,0,100,100);
