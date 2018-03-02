@@ -8,14 +8,18 @@ class GameFinished{
 		this.game = game;
 		this.level = level;
 
+		SoundMan.create(this.game);
+
 		
 		this.countx = 0;
 		this.countxStep = 5;
-
+		this.endScreenPlayed = false;
 	} 
 
 	showCoins(cbt, cba, pn, piurl, puiurl, pb, pin, csil, cgol, ngm, uiu, uin){
 
+		if (this.endScreenPlayed == true)return;
+		this.endScreenPlayed = true;
 		
 		this.coinBonusType = cbt;
 		this.coinBonusAmout = cba;
@@ -58,8 +62,8 @@ class GameFinished{
 	//	this.countxStep = 100/cbamax;
 		this.countxStep = 3;
 
-		//this.nextGame = 'Walk Donavan blablabla in 1 h 0 m '; //debug
-		//this.nextGame = 'Walk Coder in 6 h 0 m ';
+		//this.nextGame = 'Walk Donavan in 1 h 0 m '; //debug
+		//this.nextGame = 'Walk hhthth4343434 in 6 h 0 m ';
 
 		if (this.nextGame != ""){
 
@@ -86,21 +90,29 @@ class GameFinished{
 
 		this.game.load.image('petImage', piurl);
 
+		console.log('puiurl ' + puiurl);
+
 		if (this.petUserImageUrl != "null")this.game.load.image('ownerImage', puiurl);
 		if (this.userImageUrl != "null")this.game.load.image('userImage', uiu);
 
 		this.game.load.start();
+
+		console.log('game fin');
 	}
 
 	loadComplete() {
 
-		//console.log('complete');
+		console.log('complete');
 		this.startEndingScene();
+
+
 	}
 
 	startEndingScene(){
 
-		//console.log('cam 2' + this.game.camera.x + ', ' + this.game.camera.y) ;
+		
+
+		console.log('cam 2' + this.game.camera.x + ', ' + this.game.camera.y) ;
 
 		this.rectBG = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 		this.rectBG.beginFill(0x000000, 1);
@@ -117,9 +129,6 @@ class GameFinished{
 
     // graphics.lineStyle(2, 0xffd900, 1);
 
-		this.coinEndAsset = 'goldCoinEnd';
-		if (this.coinBonusType == 'silver')this.coinEndAsset = 'silverCoinEnd';
-
     	this.emitter = this.game.add.emitter((this.game.camera.x + this.game.width/2) * 1/GameData.scaleFactor, this.game.camera.y * 1/GameData.scaleFactor, 100);
 		this.emitter.fixedToCamera = true;
 		this.emitter.scale.setTo(GameData.scaleFactor);
@@ -134,16 +143,21 @@ class GameFinished{
 	    this.emitter.maxParticleSpeed.setTo(100*GameData.scaleFactor, 300*GameData.scaleFactor);
 	    this.emitter.gravity = 70;
 	    this.emitter.start(true, 15000, null, 120);
-		this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGreatJob');
-		
 
-		this.winBanner.anchor.setTo(0.5,0.5);
+
+		this.coinEndAsset = 'goldCoinEnd';
+		if (this.coinBonusType == 'silver')this.coinEndAsset = 'silverCoinEnd';
+
+		this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGreatJob');
+	 	this.winBanner.anchor.setTo(0.5,0.5);
+
+
+
 		this.winBanner.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 	 	this.winBanner.fixedToCamera = true;
 	 	this.winBanner.cameraOffset.y=-200*GameData.scaleFactor;
 	 	
     	var bannerTween1 = this.game.add.tween(this.winBanner.cameraOffset).to( { y: 150*GameData.scaleFactor}, 1500, Phaser.Easing.Back.Out, true);
-
 
 
 		this.rays = this.game.add.sprite(this.game.width/2, 300 * GameData.scaleFactor, 'raysEnd');
@@ -345,13 +359,15 @@ class GameFinished{
 			this.userAva = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'ownerImage');
 			this.userAva.anchor.setTo(0.5);
 
+			//console.log('userava ' + this.userAva.width + " x " + this.userAva.height);
 			var userAvaFactor = 1;
 			if (this.userAva.width < 500){
 
 				userAvaFactor = 500/this.userAva.width;
 			}
 
-
+			
+			//this.userAva.scale.setTo(GameData.scaleFactor * userAvaFactor);
 			this.userAva.fixedToCamera = true;
 			this.userAva.cameraOffset.x = this.game.width/2 - 90 * GameData.scaleFactor;
 			this.userAva.cameraOffset.y = 1425 * GameData.scaleFactor;
@@ -420,6 +436,7 @@ class GameFinished{
 
 			this.userAva2 = this.game.add.sprite(this.game.world.centerX, 800 * GameData.scaleFactor, 'userImage');
 			this.userAva2.anchor.setTo(0.5);
+			//this.userAva2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 
 			var userAvaFactor2 = 1;
 			if (this.userAva2.width < 500){
@@ -767,7 +784,7 @@ class GameFinished{
 
 		console.log('done');
 		
-		this.level.gameEnded();
+		//this.level.gameEnded();
 	}
 
 

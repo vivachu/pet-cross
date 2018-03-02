@@ -65,7 +65,7 @@ class GameData {
 	    	this.token = this.getUrlVars()["token"];
 	    	
 	    }else {
-	    	this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjEsImlhdCI6MTQ5NzkwNjIwNH0.UB-zvkIy82bNsL5GUTlUXMAuuXrZcBHbkz25TYEdxks';
+	    	this.token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOjEwMjIsImlhdCI6MTUxMzYyMzEwMn0.w2eWYZLLyqvv9N4C9YcYo1cwaiYq4QubDzXvlGn_0dM';
 
 	    	
 	    }	

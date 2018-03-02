@@ -195,17 +195,36 @@ class Main extends Phaser.State {
 		var nextGameMessage = "";
 		if (data.nextSession != null && data.nextSession.message != null)nextGameMessage = data.nextSession.message;
 		
-		this.gameFinished.showCoins(data.coinBonus.type, data.coinBonus.amount, data.pet.name, this.petImageUrl, this.petUserImageUrl, data.pointBonus, data.pet.user.initials, 
-			data.user.silverCoins, data.user.goldCoins, nextGameMessage, this.userImageUrl, data.user.initials);
+		//test
+	//	data.coinBonus.type = "silver";
+	//	data.coinBonus.amount = 120;
 		
+
+		if (this.gameFinished == null)this.gameFinished = new GameFinished(this.game, this);
+
+		this.gameFinished.showCoins(data.coinBonus.type, data.coinBonus.amount, data.pet.name, this.petImageUrl, this.petUserImageUrl, data.pointBonus, data.pet.user.initials, 
+		data.user.silverCoins, data.user.goldCoins, nextGameMessage, this.userImageUrl, data.user.initials);
+			
+		
+
+
+		
+
 
 		//console.log('api end ' + data.coinBonus.type + ", " + data.coinBonus.amount + ", " + data.pet.name + ", " + this.petImageUrl + ", " + this.petUserImageUrl + ", " + data.pointBonus + ", " + data.pet.user.initials);
 	}
 
 	callBackEndError(){
 
+		
+
+		if (this.gameFinished == null)this.gameFinished = new GameFinished(this.game, this);
+			
 		console.log('api call error');
 		this.gameFinished.showCoins('silver', 10, 'API error', 'assets/pics/avatar/dummyPet3.jpg', 'assets/pics/avatar/dummyPet3.jpg', 10, 'ER', 10, 10, 'walk err in 6 h 0 m', 'assets/pics/avatar/dummyPet3.jpg', 'ER');
+		
+		
+
 	}
 
 

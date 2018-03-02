@@ -26,8 +26,12 @@ class SoundMan {
 		this.sfxCoinAdd = this.game.add.audio('coinAdd', 0.6);
 		this.sfxCoinAdd.allowMultiple = true;
 
+		this.sfxCoinAdd = this.game.add.audio('coinAdd', 0.6);
+		this.sfxCoinAdd.allowMultiple = true;
+
 		this.sfxCoinFin = this.game.add.audio('coinFin', 0.4);
 		this.sfxCoinFin.allowMultiple = true;
+
 
 		//this.music.play();
 		//this.music.pause();
@@ -36,6 +40,7 @@ class SoundMan {
 
 
 	playEffect(effect){
+
 		if (effect == 'move')this.sfxMove.play();
 		if (effect == 'dead')this.sfxDead.play();
 		if (effect == 'coinAdd')this.sfxCoinAdd.play();
