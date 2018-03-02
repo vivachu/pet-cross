@@ -13,11 +13,13 @@ class GameFinished{
 		
 		this.countx = 0;
 		this.countxStep = 5;
-
+		this.endScreenPlayed = false;
 	} 
 
 	showCoins(cbt, cba, pn, piurl, puiurl, pb, pin, csil, cgol, ngm, uiu, uin){
 
+		if (this.endScreenPlayed == true)return;
+		this.endScreenPlayed = true;
 		
 		this.coinBonusType = cbt;
 		this.coinBonusAmout = cba;
@@ -107,6 +109,8 @@ class GameFinished{
 	}
 
 	startEndingScene(){
+
+		
 
 		console.log('cam 2' + this.game.camera.x + ', ' + this.game.camera.y) ;
 
