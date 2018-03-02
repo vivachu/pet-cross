@@ -211,7 +211,7 @@ class Main extends Phaser.State {
 
 	initGameFinished(){
 //		this.currentLevel.avatar.visible=false;
-		this.gameOver.startEndingScene();
+		this.gameOver.startGameOverScene();
 		this.timeBar.pause=true;
 		this.currentLevel=null;
 		this.stopGame();
