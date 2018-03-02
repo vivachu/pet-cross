@@ -10,6 +10,7 @@ import GameStart from 'helpers/GameStart'
 import SoundMan from 'helpers/SoundMan';
 import Tutorial from 'helpers/Tutorial';
 import GameFinished from 'helpers/GameFinished';
+import GameOver from 'states/GameOver';
 import Backend from 'helpers/Backend';
 
 
@@ -34,6 +35,7 @@ class Main extends Phaser.State {
 
 		this.tutorial = new Tutorial(this.game, this);
 		this.gameFinished = new GameFinished(this.game, this);
+		this.gameOver = new GameOver(this.game, this);
 
 		this.timeBar = null;
 		this.progressCounter = null;
@@ -42,6 +44,8 @@ class Main extends Phaser.State {
 
 		SoundMan.resumeMusic();
 		//this.startGame();//debug
+				//this.gameOver.startEndingScene();//debug
+
 	}
 
 	pauseClicked(){
@@ -55,28 +59,30 @@ class Main extends Phaser.State {
 	}
 
 	
+	prepareGame(){
+		this.firstStart = false;
+		this.currentLevel = new Level(this.game, this);
+		this.timeBar.Start();
+		this.progressCounter.Start();
+		this.lives.Start();
+
+		this.tutorial.startTutorial();
+	}
 
 	startGame(){
 		if (this.firstStart){
-			this.firstStart = false;
-
-			this.currentLevel = new Level(this.game, this);
   		//	this.pauseButton = this.game.add.button(this.game.width-(110* GameData.scaleFactor), this.game.height-(100 * GameData.scaleFactor), 'btpauseup', this.pauseClicked, this, 2, 1, 0);
   		//	this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
 		//	this.pauseButton.fixedToCamera = true;
 
-			this.timeBar.Start();
-			this.progressCounter.Start();
-			this.lives.Start();
 		}
 
 		GameData.gameState=1;
 		SoundMan.resumeMusic();
-
 		//this.gameFinished = new GameFinished(this.game, this);
 		//this.convertTimeToCoin();
 
-		//this.initGameFinished();
+		this.initGameFinished();
 	}
 
 	stopGame(){
@@ -223,29 +229,27 @@ class Main extends Phaser.State {
 
 
 	initGameFinished(){
-
+//		this.currentLevel.avatar.visible=false;
+		this.gameOver.startEndingScene();
+		this.timeBar.pause=true;
 		this.currentLevel=null;
 		this.stopGame();
-		SoundMan.playBgWin();
 		GameData.gameState=3;
+		this.gameEnd = true;
+	}
+
+
+	gameEnded(){
+		SoundMan.playBgWin();
 
 		//this.timeBar.Stop();
 
 		//this.gameFinished = new GameFinished(this.game, this);
 		this.convertTimeToCoin();
-		this.gameEnd = true;
-
-	}
-
-
-	gameEnded(){
-		
-		console.log("game ended");
 	}
 
 
 	addScore(type){
-
 		this.items.updateItemNum(type);
 
 		GameData.completion--;

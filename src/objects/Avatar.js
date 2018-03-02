@@ -57,6 +57,7 @@ class Avatar extends Phaser.Sprite{
 	}
 
 	move(arah){
+		this.level.main.tutorial.tutorialFinished = true;
 		if (GameData.gameState!=1) return;
 		if (arah=='left' && this.posx<GameData.rightOffset){
 			if (this.level.lanes[this.posy].rows[this.posx-GameData.leftOffset+1] != undefined) return;
@@ -75,6 +76,7 @@ class Avatar extends Phaser.Sprite{
   	    	this.posy--;
   	    	if (this.posy<5){
   	    		//win!
+  	    		this.visible=false;
   	    		this.level.gameWin();
   	    	}
  	    	//this.posx=Math.round(this.x/GameData.tileWidth);
@@ -100,6 +102,7 @@ class Avatar extends Phaser.Sprite{
 
 	moveAnim(xStep,yStep){
 
+			this.bringToTop();
  	    	GameKey.keyfree=false;
  	    	if (this.rideObject) this.rideObject.ridden=false;
  	    	this.rideObject = null;
@@ -120,6 +123,12 @@ class Avatar extends Phaser.Sprite{
 		this.ready=true;
     	this.trail.updatePos();
 		this.checkLane();
+		if (GameData.playDistance>=GameData.totalLanes-1) {
+			console.log("this is vis " + this.visible);
+			console.log(this);
+			this.visible=false;
+	    	this.level.main.initGameFinished();	
+	    }
 	}
 
 	playAgain(){
@@ -179,6 +188,8 @@ class Avatar extends Phaser.Sprite{
 				if (this.rideObject!=null){
 					this.keceburCounter=0;
 					this.x=this.rideObject.x+this.rideOffset;
+	 	    		this.posx=Math.round(this.x/GameData.tileWidth);
+
 				}else{
 					//console.log("kecebur");
 					this.keceburCounter++;

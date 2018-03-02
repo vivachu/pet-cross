@@ -80,10 +80,7 @@ class TimeBar extends Phaser.Sprite{
 			this.timebar.y=this.cropRect.y+10;
 			this.marker.y=this.timebar.y;
 	    	this.timebar.updateCrop();
-	    	if (GameData.playDistance>=GameData.totalLanes-1) {
-	    		this.main.initGameFinished();	
-	    		this.pause=true;
-	    	}
+
 
 
 /*			

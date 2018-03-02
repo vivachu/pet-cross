@@ -162,6 +162,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('buttonDoneUp', 'assets/pics/button-done-up.png');
 		this.game.load.image('imgGreatJob', 'assets/pics/great-job-banner.png');
 		this.game.load.image('imgGameOver', 'assets/pics/ribbon-gameover.png');
+		this.game.load.image('imgClaim', 'assets/pics/btn-claim.png');
+
+
 
 		this.game.load.image('rays', 'assets/pics/rays.png');
 		this.game.load.image('gotCoins', 'assets/pics/text-you-got-coin.png');
@@ -169,7 +172,9 @@ class Preload extends Phaser.State {
 		this.game.load.image('silverCoin', 'assets/pics/coin-silver.png');
 		this.game.load.image('scoreBoard', 'assets/pics/score-board.png');
 		this.game.load.image('confetti', 'assets/pics/confetti.png');
+		this.game.load.image('imgTips2', 'assets/pics/tips-2.png');
 		this.game.load.image('imgHand', 'assets/pics/hand-tutorial.png');
+
 		this.game.load.image('confetti1', 'assets/pics/confetti-1.png');
 		this.game.load.image('confetti2', 'assets/pics/confetti-2.png');
 		this.game.load.image('confetti3', 'assets/pics/confetti-3.png');
@@ -178,7 +183,7 @@ class Preload extends Phaser.State {
 		this.game.load.image('confetti6', 'assets/pics/confetti-6.png');
 		this.game.load.image('tapEffect', 'assets/pics/tap-effect.png');
 		this.game.load.image('swipeEffect', 'assets/pics/swipe-effect.png');
-		this.game.load.image('handTutorial', 'assets/pics/hand-tutorial.png');
+		this.game.load.image('hand', 'assets/pics/hand-tutorial.png');
 		this.game.load.image('skip', 'assets/pics/skip-button.png');
 
 		//music and soundfx

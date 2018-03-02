@@ -24,6 +24,7 @@ class AvatarTrail extends Phaser.Sprite{
 		this.x=this.avatar.x;
 		this.y=this.avatar.y;
    	 	this.animations.play('walk', 12, false);
+
 	}
 }
 

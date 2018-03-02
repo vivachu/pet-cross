@@ -146,12 +146,14 @@ class GameFinished{
 
 		this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGreatJob');
 	 	this.winBanner.anchor.setTo(0.5,0.5);
+
+
+
 		this.winBanner.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 	 	this.winBanner.fixedToCamera = true;
 	 	this.winBanner.cameraOffset.y=-200*GameData.scaleFactor;
 	 	
     	var bannerTween1 = this.game.add.tween(this.winBanner.cameraOffset).to( { y: 150*GameData.scaleFactor}, 1500, Phaser.Easing.Back.Out, true);
-
 
 
 		this.rays = this.game.add.sprite(this.game.width/2, 300 * GameData.scaleFactor, 'raysEnd');
@@ -778,7 +780,7 @@ class GameFinished{
 
 		console.log('done');
 		
-		this.level.gameEnded();
+		//this.level.gameEnded();
 	}
 
 
