@@ -125,7 +125,7 @@ class GameFinished{
 
     // graphics.lineStyle(2, 0xffd900, 1);
 
-    	this.emitter = this.game.add.emitter(this.game.world.centerX * 1/GameData.scaleFactor, this.game.camera.y * 1/GameData.scaleFactor, 100);
+    	this.emitter = this.game.add.emitter((this.game.camera.x + this.game.width/2) * 1/GameData.scaleFactor, this.game.camera.y * 1/GameData.scaleFactor, 100);
 		this.emitter.fixedToCamera = true;
 		this.emitter.scale.setTo(GameData.scaleFactor);
 
