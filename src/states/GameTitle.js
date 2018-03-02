@@ -1,3 +1,6 @@
+import Avatar from 'objects/Avatar';
+import AvatarTrail from 'objects/AvatarTrail';
+
 class GameTitle extends Phaser.State {
 
 	create() {
@@ -5,7 +8,14 @@ class GameTitle extends Phaser.State {
 	}
 
 	startGame() {
+		//this.testThing();
 		this.game.state.start("Main");
+	}
+
+	testThing(){
+	}
+
+	actionOnClick () {
 	}
 
 }

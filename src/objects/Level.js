@@ -3,6 +3,11 @@ import LogScreen from 'helpers/LogScreen'
 import SoundMan from 'helpers/SoundMan'
 import Land from 'objects/Land';
 import Avatar from 'objects/Avatar';
+import AvatarTrail from 'objects/AvatarTrail';
+import TimeBar from 'objects/TimeBar'; 
+import ProgressCounter from 'objects/ProgressCounter'; 
+import Lives from 'objects/Lives'; 
+
 
 class Level extends Phaser.Sprite{
 
@@ -37,11 +42,15 @@ class Level extends Phaser.Sprite{
 		this.prevVariant=0;
 
 	    var pakeFence=0;
-	     for (var i=0;i<10;i++){
+	    for (var i=0;i<5;i++){
 		    	this.addLane(laneid,1,5);laneid++;
 		}
+	    for (var i=0;i<5;i++){
+		    	this.addLane(laneid,1,4);laneid++;
+		}
 	    while (ctr<GameData.totalLanes){
-	    	var laneType = this.game.rnd.integerInRange(1,3);
+	    	//var laneType = lGrass;//debug
+	    	var laneType = this.game.rnd.integerInRange(1,3); 
 	    	if (laneType==2 && prevLane==3) laneType=lGrass;
 	    	if (laneType==3 && prevLane==2) laneType=lGrass;
 
@@ -63,7 +72,7 @@ class Level extends Phaser.Sprite{
 				}else{
 			    	this.addLane(laneid,3);laneid++;ctr++;
 			    	this.addLane(laneid,4);laneid++;ctr++;
-			    	this.addLane(laneid,3);laneid++;ctr++;
+			    	this.addLane(laneid,3);laneid++;ctr++; 
 				}
 	    	}
 	    	if (laneType==lwater){
@@ -80,10 +89,11 @@ class Level extends Phaser.Sprite{
 	    if (prevLane==lroad) {this.addLane(laneid,5);laneid++;ctr++;}
 		if (prevLane==lwater) {this.addLane(laneid,8);laneid++;ctr++;}
 	    for (var i=0;i<10;i++){
-		    	this.addLane(laneid,1);laneid++;
+		    	this.addLane(laneid,1,5);laneid++;
 		}
-	    GameData.totalLanes=laneid;
+	    GameData.totalLanes=laneid-1;
 
+		this.game.world.setBounds(0, 0, GameData.boundsWidth, GameData.totalLanes*GameData.tileWidth);
 		this.landGroup = this.game.add.group();
 		this.land= new Land(this.game, this);
 		
@@ -96,32 +106,47 @@ class Level extends Phaser.Sprite{
 		this.fenceGroup = this.game.add.group();
 		this.game.physics.arcade.enable(this.fenceGroup);
 
+		this.bonusGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.bonusGroup);
+
 
 		this.avatar = new Avatar(this.game, this);
-		//this.game.camera.follow(this.avatar);
-		this.game.camera.focusOnXY(this.avatar.x, this.avatar.y-(200*GameData.scaleFactor));
+		this.avatarTrail = new AvatarTrail(this.game, this, this.avatar);
+		this.avatar.trail=this.avatarTrail;
 
+		this.game.camera.focusOnXY(this.avatar.x, this.avatar.y-(200*GameData.scaleFactor));
 		this.game.camera.follow(this.avatar.tofollow, Phaser.Camera.FOLLOW_LOCKON, 0.03, 0.03);
-//		this.game.camera.bounds= new Phaser.Rectangle(this.game.width/2,0,this.game.width,12000);
 
 		var dWidth=this.game.width-(150*GameData.scaleFactor);
 		var dHeight=this.game.height*.5;
 
+		this.main.timeBar = new TimeBar(this.game, this.main);
+		this.main.progressCounter = new ProgressCounter(this.game, this.main);
+		this.main.lives = new Lives(this.game, this.main);
+		GameData.coinCollected = 0;
+		GameData.ticketCollected = 0;
 
 
 
 ////////debug
-			LogScreen.enableFPSCounter=true;
-			var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
-			this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,style0);
-		    this.textConsole0.fixedToCamera = true;
+	//		LogScreen.enableFPSCounter=true;
+	//		var style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
+	//		this.textConsole0 = this.game.add.text(0, 0, 'campos: ' + this.game.camera.y,this.style0);
+	//	    this.textConsole0.fixedToCamera = true;
 ////////debug
+
+	/*		this.style0 = {font: "20px Arial", fill: "#ff00ff", align: "center"};
+			this.textLives = this.game.add.text(this.game.width/2, 100*GameData.scaleFactor, this.style0);
+			this.textLives.anchor.setTo(0.5,0.5);
+		    this.textLives.fixedToCamera = true;
+		    */
 
 
 	}
 
 	getVariant(){
     	var newVariant = this.game.rnd.integerInRange(1,3);
+    	if (newVariant==1 && this.prevVariant<4) newVariant=4;
     	if (this.prevVariant==1) newVariant = 4;
     	this.prevVariant=newVariant;
     	return newVariant;
@@ -140,8 +165,17 @@ class Level extends Phaser.Sprite{
 
 	gameOver(){
 		//console.log("GAMEOVER");
-		GameData.gameState=3;
-		this.avatar.playAgain();
+		SoundMan.playEffect('dead');
+		GameData.lives--;
+		this.main.lives.setValue();
+		if (GameData.lives==0){
+			GameData.totalLanes=0;
+			GameData.lose=true;
+			this.gameWin();
+		}else{
+			GameData.gameState=3;
+			this.avatar.playAgain();
+		}
 
 	}
 
@@ -154,10 +188,12 @@ class Level extends Phaser.Sprite{
 			this.avatar.update();
 			this.avatar.bringToTop();
 			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
+			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
-			this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy;
+			//this.textConsole0.text = 'loc : ' + this.avatar.posx + " , " + this.avatar.posy + " , " +this.game.camera.y;
 			//this.textConsole0.text = 'fps : ' + this.game.time.fps;
 			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
+			//this.textLives.text = GameData.playDistance;
 			this.land.checkLane();
 	//	}
 	}

@@ -51,11 +51,15 @@ See [gulpfile.md](https://github.com/vivachu/pets-minigames/gulpfile.md)
 - Changing Drawing algo , using BitmapData draws bitmap to lanes, no lag low fps
 - fixing wood log random to a controlled random system
 - creating fence and other ornaments
-- Changing Drawing algo, hybrid tiling to pure grid tiling. high fps
+- Changing Drawing algo, hybrid tiling to pure grid tiling. success with high fps
 - creating controlled random for fences
+- gameover when falling into water 
+- creating controlle drandom for grass objects
+- Changing Drawing algo , from 72px tile to 144px tile
 
 
-
+- remove pause button
+- shorten the playing length from 200 lines to 100
 
 ## Contributing
 

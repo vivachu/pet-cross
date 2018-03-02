@@ -27,7 +27,7 @@ class GameTouch {
 		this.onHold = new Phaser.Signal();	
 
 		this.onTap.add(this.onTaps,this);
-		//this.onSwipe.add(this.onMove,this);
+		this.onSwipe.add(this.onMove,this);
 		GameTouch.SWIPE = 0;
 	    GameTouch.TAP = 1;	
     	GameTouch.HOLD = 2;
@@ -43,6 +43,9 @@ class GameTouch {
 	} 
 
 	onTaps(){
+		this.avatar.move('jump');
+
+		/*
 //		var dx=this.game.input.activePointer.position.x-this.game.input.activePointer.positionDown.x;
 //		var dy=this.game.input.activePointer.position.y-this.game.input.activePointer.positionDown.y;
 //		console.log(this.game.input.activePointer.positionDown.x + " , " + this.game.input.activePointer.positionDown.y);
@@ -59,6 +62,7 @@ class GameTouch {
 			if (dy>0)	this.avatar.move('jump');
 		}
 //			this.game.add.tween(this.avatar).to( { y: this.avatar.y-this.avatar.jumpPower}, this.avatar.jumpSpeed, Phaser.Easing.Back.In, true);
+	*/
 	}
 
 	onMove(a,b,c) {
@@ -121,7 +125,7 @@ class GameTouch {
 	  	var distance = Phaser.Point.distance(this.game.input.activePointer.position, this.game.input.activePointer.positionDown);
         var duration = this.game.input.activePointer.duration;
 
-       // this.updateSwipe(distance, duration);
+        this.updateSwipe(distance, duration);
 		this.updateTouch(distance, duration);
 	}
 

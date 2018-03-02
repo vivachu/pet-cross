@@ -14,8 +14,8 @@ class Car extends Phaser.Sprite{
 		this.land.level.carGroup.add(this);
 		this.triggerOther = false;
 
-		this.width=GameData.scaleFactor*144;
-		this.height=GameData.scaleFactor*144;
+		this.width=GameData.scaleFactor*288;
+		this.height=GameData.scaleFactor*288;
  	//	this.game.physics.enable(this, Phaser.Physics.ARCADE);
 	//	this.body.immovable = false;
    // 	this.body.collideWorldBounds = true;
@@ -33,9 +33,9 @@ class Car extends Phaser.Sprite{
 			if (this.checkOverlap(this,this.level.avatar)) this.collisionHandler();
 			//this.game.physics.arcade.collide(this, this.level.avatar, this.collisionHandler, null, this);
 			if (this.arah==1){
-				if (this.x>=GameData.boundsWidth) this.x=0;
+				if (this.x>=GameData.boundsWidth+GameData.tileWidth) this.x=0;
 			}else{
-				if (this.x<=0) this.x=GameData.boundsWidth-GameData.tileWidth;
+				if (this.x<0) this.x=GameData.boundsWidth+GameData.tileWidth;
 			}
 		}
 	}
@@ -52,10 +52,16 @@ class Car extends Phaser.Sprite{
 
 
 	collisionHandler(){
-		var yy=Math.round(this.level.avatar.y/GameData.tileWidth);
+/*
+		var yy=Math.round((this.level.avatar.y-this.level.avatar.midOffset)/GameData.tileWidth);
 		if (yy == this.lane.line){
 			this.level.gameOver();	
 		}
+*/
+		if (this.level.avatar.posy == this.lane.line){
+			this.level.gameOver();	
+		}
+
 	}
 
 }

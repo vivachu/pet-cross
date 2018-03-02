@@ -14,6 +14,7 @@ class Wood extends Phaser.Sprite{
 		this.game.add.existing(this);
 		this.land.level.woodGroup.add(this);
 		this.triggerOther = false;
+		this.name = 'log'+lane.line+"_"+xpos;
 
 		this.scale.x=GameData.scaleFactor;
 		this.scale.y=GameData.scaleFactor;
@@ -52,11 +53,11 @@ class Wood extends Phaser.Sprite{
 
 	collisionHandler(){
 		if (this.level.avatar.ready==false) return;
-		if (this.level.avatar.rideObject!=null || this.ridden) return;
+		if (this.ridden) return;
 
-		var yy=Math.round(this.level.avatar.y/GameData.tileWidth);
+		var yy=Math.round((this.level.avatar.y-this.level.avatar.midOffset)/GameData.tileWidth);
 		if (yy == this.lane.line){
-			//console.log("ridewood");
+		//55	console.log("ride " + this.name);
 	    	this.ridden=true;
 			this.level.avatar.rideWood(this);
 		}
