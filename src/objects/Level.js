@@ -7,6 +7,7 @@ import AvatarTrail from 'objects/AvatarTrail';
 import TimeBar from 'objects/TimeBar'; 
 import ProgressCounter from 'objects/ProgressCounter'; 
 import Lives from 'objects/Lives'; 
+import Tutorial from 'helpers/Tutorial'; 
 
 
 class Level extends Phaser.Sprite{
@@ -126,7 +127,7 @@ class Level extends Phaser.Sprite{
 		GameData.coinCollected = 0;
 		GameData.ticketCollected = 0;
 
-
+		
 
 ////////debug
 	//		LogScreen.enableFPSCounter=true;
@@ -143,6 +144,7 @@ class Level extends Phaser.Sprite{
 
 
 	}
+
 
 	getVariant(){
     	var newVariant = this.game.rnd.integerInRange(1,3);
@@ -186,7 +188,7 @@ class Level extends Phaser.Sprite{
 	update(){
 	//	if (GameData.gameState==1){
 			this.avatar.update();
-			this.avatar.bringToTop();
+	//		this.avatar.bringToTop();
 			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
 			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
