@@ -42,7 +42,7 @@ class GameStart{
 	}
 
 	startClicked(){
-		this.level.startGame();
+		this.level.prepareGame();
     	var scale = this.game.add.tween(this.startButton.scale).to( { x: 0, y:0}, 600, Phaser.Easing.Back.In, true,0);
     	var tween = this.game.add.tween(this.title.cameraOffset).to( { y: -600*GameData.scaleFactor}, 600, Phaser.Easing.Back.In, true,500);
 

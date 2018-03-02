@@ -120,26 +120,24 @@ class GameFinished{
 		this.coinEndAsset = 'goldCoinEnd';
 		if (this.coinBonusType == 'silver')this.coinEndAsset = 'silverCoinEnd';
 
-		if (GameData.lose){
-			this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGameOver');
-		}else{
-	    	this.emitter = this.game.add.emitter((this.game.camera.x + this.game.width/2) * 1/GameData.scaleFactor, this.game.camera.y * 1/GameData.scaleFactor, 100);
-			this.emitter.fixedToCamera = true;
-			this.emitter.scale.setTo(GameData.scaleFactor);
+    	this.emitter = this.game.add.emitter((this.game.camera.x + this.game.width/2) * 1/GameData.scaleFactor, this.game.camera.y * 1/GameData.scaleFactor, 100);
+		this.emitter.fixedToCamera = true;
+		this.emitter.scale.setTo(GameData.scaleFactor);
 
-			this.emitter.makeParticles(['confetti1', 'confetti2', 'confetti3', 'confetti4', 'confetti5', 'confetti6']);
-			//this.emitter.cameraOffset.x = this.game.width/2;
-			//this.emitter.cameraOffset.y = 1000;
+		this.emitter.makeParticles(['confetti1', 'confetti2', 'confetti3', 'confetti4', 'confetti5', 'confetti6']);
+		//this.emitter.cameraOffset.x = this.game.width/2;
+		//this.emitter.cameraOffset.y = 1000;
 
-			//this.emitter.setScale(0.48 * GameData.scaleFactor, 0.5 * GameData.scaleFactor, 0.48 * GameData.scaleFactor, 0.5 * GameData.scaleFactor);
+		//this.emitter.setScale(0.48 * GameData.scaleFactor, 0.5 * GameData.scaleFactor, 0.48 * GameData.scaleFactor, 0.5 * GameData.scaleFactor);
 
-			this.emitter.minParticleSpeed.setTo(-100*GameData.scaleFactor, -300*GameData.scaleFactor);
-		    this.emitter.maxParticleSpeed.setTo(100*GameData.scaleFactor, 300*GameData.scaleFactor);
-		    this.emitter.gravity = 70;
-		    this.emitter.start(true, 15000, null, 120);
-			this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGreatJob');
-		}
-	 	this.winBanner.anchor.setTo(0.5,0.5);
+		this.emitter.minParticleSpeed.setTo(-100*GameData.scaleFactor, -300*GameData.scaleFactor);
+	    this.emitter.maxParticleSpeed.setTo(100*GameData.scaleFactor, 300*GameData.scaleFactor);
+	    this.emitter.gravity = 70;
+	    this.emitter.start(true, 15000, null, 120);
+		this.winBanner = this.game.add.sprite(this.game.width/2,300, 'imgGreatJob');
+		
+
+		this.winBanner.anchor.setTo(0.5,0.5);
 		this.winBanner.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 	 	this.winBanner.fixedToCamera = true;
 	 	this.winBanner.cameraOffset.y=-200*GameData.scaleFactor;
