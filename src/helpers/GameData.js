@@ -32,13 +32,15 @@ class GameData {
 		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;
 		this.totalLanes = 100;
 		this.playDistance = 0;//distance travelled in lanes
-		this.playTime = 60;// length of play in sec
+		this.playTime = 0;// length of play in sec
+		this.gameTime = 120;// total playing time
 		this.coinCollected = 4;
 		this.ticketCollected = 1;
 		this.ticketOnMap = 0;
 		this.arahLane=1;
 		this.lives=3;
 		this.lose=false;
+		this.score=0;
 
 	    //apiUrl
 	    if (this.getUrlVars()["apiUrl"] != null){
@@ -93,10 +95,10 @@ class GameData {
 
 	gety(y){
 		var offsety = this.game.world.centerY - (this.refHeight * this.scaleFactor *.5);
-		console.log(this.game.world.centerY);
-		console.log(this.refHeight);
-		console.log(this.scaleFactor);
-		console.log(offsety);
+		//console.log(this.game.world.centerY);
+		//console.log(this.refHeight);
+		//console.log(this.scaleFactor);
+		//console.log(offsety);
 		return offsety + ( y * this.scaleFactor);
 	}
 

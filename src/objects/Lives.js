@@ -9,27 +9,32 @@ class Lives extends Phaser.Sprite{
 		this.game = game;
 		this.main = main;
 		this.game.add.existing(this);
+		this.main.hudGroup.add(this);
  
 
 		this.heart = game.add.sprite(this.game.width-(60*GameData.scaleFactor),60*GameData.scaleFactor, 'iconlive'); 
  		this.heart.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
  		this.heart.anchor.setTo(0.5,0.5);
  		this.heart.fixedToCamera = true;
+		this.main.hudGroup.add(this.heart);
 
  		this.live1 = game.add.sprite(this.game.width-(130*GameData.scaleFactor),60*GameData.scaleFactor, 'live1'); 
  		this.live1.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
  		this.live1.anchor.setTo(0.5,0.5);
  		this.live1.fixedToCamera = true;
+		this.main.hudGroup.add(this.live1);
 
  		this.live2 = game.add.sprite(this.game.width-(130*GameData.scaleFactor),60*GameData.scaleFactor, 'live2'); 
  		this.live2.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
  		this.live2.anchor.setTo(0.5,0.5);
  		this.live2.fixedToCamera = true;
+		this.main.hudGroup.add(this.live2);
 
  		this.live3 = game.add.sprite(this.game.width-(130*GameData.scaleFactor),60*GameData.scaleFactor, 'live3'); 
  		this.live3.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
  		this.live3.anchor.setTo(0.5,0.5);
  		this.live3.fixedToCamera = true;
+		this.main.hudGroup.add(this.live3);
 
  		this.live1.visible=false;
  		this.live2.visible=false;

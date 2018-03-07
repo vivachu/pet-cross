@@ -24,7 +24,7 @@ class Lane {
 		this.sprLane = this.game.add.sprite(0,this.line*(144*GameData.scaleFactor),this.bmdLane);
 		this.sprLane.scale.x=GameData.scaleFactor;
 		this.sprLane.scale.y=GameData.scaleFactor;
-		this.level.landGroup.add(this.sprLane);
+		this.level.main.landGroup.add(this.sprLane);
 		this.numObjects=0;
 		this.bonusOnLane = false;
 		for (var i=0;i<GameData.screenWidth;i++){
@@ -58,7 +58,7 @@ class Lane {
 		} else if (this.lanes[this.line].type==3){//road
 			var numTriggers = GameData.boundsWidth/GameData.tileWidth;		    
 		    var space=GameData.boundsWidth/numTriggers;
-			for(var i = 0; i<numTriggers ; i+=4){
+			for(var i = 0; i<numTriggers-1 ; i+=4){
 				if (Math.random()>0.4){				
 					this.objects[this.numObjects] = new Car(
 														this.game,
@@ -144,9 +144,9 @@ class Lane {
 //		    	}
 				if (i>=GameData.leftOffset && i<=GameData.rightOffset){
 					if (arrayContent!='flower') this.lanes[this.line].rows[ctr]=arrayContent;
-/*					if (arrayContent==undefined){
-						this.addBonus(i*144);
-					}*/
+					if (arrayContent==undefined){
+						this.addBonus(i*(144*GameData.scaleFactor));
+					}
 					ctr++;
 				}
 
@@ -166,30 +166,19 @@ class Lane {
 	}
 
 	addBonus(x){
-			console.log(GameData.ticketOnMap);
-			if (Math.random()>0.8 && !this.bonusOnLane && GameData.ticketOnMap<1){
-				this.bonusOnLane=true;
-				GameData.ticketOnMap++;
-				this.objects[this.numObjects] = new Ticket(
-														this.game,
-														this.level,
-														this,
-														x,
-														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
-													);
-				this.numObjects++
-			return;
-			}
-		if (Math.random()>0.95 && !this.bonusOnLane){
+		if (GameData.lives>=3) return;
+		if (Math.random()>0.8 && !this.bonusOnLane && GameData.ticketOnMap<1){
 			this.bonusOnLane=true;
-			this.objects[this.numObjects] = new Coin(
+			GameData.ticketOnMap++;
+			this.objects[this.numObjects] = new Ticket(
 														this.game,
 														this.level,
 														this,
 														x,
-														this.line*GameData.tileWidth-(144*GameData.scaleFactor)
+														this.line*GameData.tileWidth
 													);
-			this.numObjects++
+			this.numObjects++;
+			return;
 		}
 	}
 

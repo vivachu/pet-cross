@@ -12,7 +12,8 @@ class Avatar extends Phaser.Sprite{
 		this.game = game;
 		this.level = level;
 		this.game.add.existing(this);
-		
+		this.level.main.avatarGroup.add(this);
+
 		this.width=GameData.tileWidth;
 		this.height=GameData.tileWidth;  
 		this.anchor.setTo(0.5,0.5);
@@ -76,7 +77,6 @@ class Avatar extends Phaser.Sprite{
   	    	this.posy--;
   	    	if (this.posy<5){
   	    		//win!
-  	    		this.visible=false;
   	    		this.level.gameWin();
   	    	}
  	    	//this.posx=Math.round(this.x/GameData.tileWidth);
@@ -124,9 +124,6 @@ class Avatar extends Phaser.Sprite{
     	this.trail.updatePos();
 		this.checkLane();
 		if (GameData.playDistance>=GameData.totalLanes-1) {
-			console.log("this is vis " + this.visible);
-			console.log(this);
-			this.visible=false;
 	    	this.level.main.initGameFinished();	
 	    }
 	}

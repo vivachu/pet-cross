@@ -1,37 +1,27 @@
 import GameData from 'helpers/GameData'
+import SoundMan from 'helpers/SoundMan';
+
 
 class GameStart{
 
 
-	constructor(game,level){
+	constructor(game,main){
 		this.game = game;
-		this.level = level;
+		this.main = main;
 
-		/*
-		this.graphics = game.add.graphics(0, 0);
-	    this.graphics.lineStyle(1, 0x000000, 1);
-        this.graphics.beginFill(0xF000000);
-        this.graphics.drawRect(0,0 , this.game.width,this.game.height);
-    	this.graphics.alpha=0.6;
-    	this.graphics.fixedToCamera = true;
-	    window.graphics = this.graphics;
-		*/
+		this.midx = this.game.width/2;
+		this.midy = this.game.height/2;
 
-	 	this.title = game.add.sprite(this.game.world.centerX,this.game.world.centerY, 'titlepic');
+
+	 	this.title = game.add.sprite(this.midx,this.midy, 'titlepic');
+ 		this.main.uiGroup.add(this.title);
+
 	 	this.title.anchor.setTo(0.5,0.5);
-//	 	this.title.width = this.game.width;
-//	 	this.title.height = this.game.height;
  		this.title.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 	 	this.title.fixedToCamera = true;
-//	 	this.title.cameraOffset.y=-200;
-	 	
-//    	var tween = this.game.add.tween(this.title.cameraOffset).to( { y: 450*GameData.scaleFactor}, 600, Phaser.Easing.Back.Out, true,1000);
-    	this.showStartButton();
-	} 
 
-	showStartButton(){
-
-		this.startButton = this.game.add.button(this.game.world.centerX,950 * GameData.scaleFactor, 'btstartup', this.startClicked, this, 2, 1, 0);
+		this.startButton = this.game.add.button(this.midx,this.midy+(300*GameData.scaleFactor) , 'btstartup', this.startClicked, this, 2, 1, 0);
+ 		this.main.uiGroup.add(this.startButton);
 	 	this.startButton.anchor.setTo(0.5,0.5);
 	 	this.startButton.scale.setTo(0.5*GameData.scaleFactor,0.5*GameData.scaleFactor);
 		this.startButton.fixedToCamera = true;
@@ -42,25 +32,16 @@ class GameStart{
 	}
 
 	startClicked(){
-		this.level.prepareGame();
-    	var scale = this.game.add.tween(this.startButton.scale).to( { x: 0, y:0}, 600, Phaser.Easing.Back.In, true,0);
-    	var tween = this.game.add.tween(this.title.cameraOffset).to( { y: -600*GameData.scaleFactor}, 600, Phaser.Easing.Back.In, true,500);
-
-//  	  	tween.onComplete.add(this.endAnimate,this);
-	}
-
-	//imediately set title offscreen and start game when skip button is pressed
-	byPassFromSkip(){
-
-		var tween = this.game.add.tween(this.title.cameraOffset).to( { y: -200 * GameData.scaleFactor}, 600, Phaser.Easing.Back.In, true,500);
-
-  	  	tween.onComplete.add(this.endAnimate,this);
+		
+		var scale = this.game.add.tween(this.startButton.scale).to( { x: 0, y:0}, 600, Phaser.Easing.Back.In, true,0);
+   	    var tween = this.game.add.tween(this.title.cameraOffset).to( { y: -1000*GameData.scaleFactor}, 600, Phaser.Easing.Linear.None, true,500);
+		tween.onComplete.add(this.endAnimate,this);
 	}
 
 	endAnimate(){
-		//this.graphics.clear();
-    	this.level.startGame();	// did not know how to create event yet, change later
-
+		this.main.startLevel();
+		this.title.destroy();
+		this.startButton.destroy();
 	}
 
 }

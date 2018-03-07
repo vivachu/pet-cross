@@ -9,6 +9,7 @@ class TimeBar extends Phaser.Sprite{
 		this.game = game;
 		this.main = main;
 		this.game.add.existing(this);
+		this.main.hudGroup.add(this);
  
 
 
@@ -23,7 +24,6 @@ class TimeBar extends Phaser.Sprite{
  		this.timebarbg.addChild(this.timebar);
 
     	this.prevTime = this.game.time.totalElapsedSeconds() ; 
-    	this.gameTime = 0; 
     	this.totalSeconds = 0;
     	this.pause = true;
 
@@ -34,7 +34,6 @@ class TimeBar extends Phaser.Sprite{
 		this.marker = game.add.sprite(0,10, 'dbmarker');
 		this.marker.anchor.setTo(0.5,0.5);
 		this.timebarbg.addChild(this.marker);
-
 
 
 
@@ -74,31 +73,10 @@ class TimeBar extends Phaser.Sprite{
 
 	update(){
 		if (this.pause) return;
-
-
 			this.cropRect.y = this.barheight-(GameData.playDistance/GameData.totalLanes) * this.barheight;		
 			this.timebar.y=this.cropRect.y+10;
 			this.marker.y=this.timebar.y;
 	    	this.timebar.updateCrop();
-
-
-
-/*			
-			if (Math.round(this.game.time.totalElapsedSeconds()) > this.prevTime && GameData.gameState==1){
-				this.prevTime = Math.round(this.game.time.totalElapsedSeconds());
-				this.gameTime ++ ;
-				this.totalSeconds = Math.round(this.gameTime);
-
-		    	this.cropRect.width = (this.gameTime/GameData.playTime) * this.barwidth;
-		    	this.timebar.updateCrop();
-		    	if (this.gameTime>=GameData.playTime) {
-		    		this.main.initGameFinished();	
-		    		this.pause=true;
-		    	}
-
-			}
-*/
-
 	}
 
 }

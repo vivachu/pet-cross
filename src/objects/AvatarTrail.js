@@ -13,6 +13,7 @@ class AvatarTrail extends Phaser.Sprite{
 		this.width=this.avatar.width*2;
 		this.height=this.avatar.height*2;
 		this.game.add.existing(this);
+		this.level.main.bonusGroup.add(this);
    	 	this.jump = this.animations.add('walk');
    	 	this.updatePos();
 

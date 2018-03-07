@@ -7,12 +7,14 @@ class GameOver{
 	constructor(game,main){
 		this.game = game;
 		this.main = main;
+		this.gameOverPlayed=false;
 	} 
 
 	
 	startGameOverScene(){
+		if(this.gameOverPlayed==true) return;
+		this.gameOverPlayed=true;
 
-		console.log("startEndingScene");
 		this.rectBG = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 		this.rectBG.beginFill(0x000000, 1);
 		this.rectBG.drawRect(0,0,100,100);
@@ -47,7 +49,7 @@ class GameOver{
     	var imgGotTween1 = this.game.add.tween(this.imgGot.scale).to({x:1 * GameData.scaleFactor, y: 1 * GameData.scaleFactor}, 1000, Phaser.Easing.Back.Out, true, 0);
 
 
-    	var text = "You went " + GameData.playDistance + " steps in " + GameData.lives + " lives.";
+    	var text = "You went " + GameData.playDistance + " steps \n    in " + GameData.playTime + " seconds.";
 
 		this.textGot = this.game.add.bitmapText(0, 0, 'fontOduda', text, 64);
 		this.textGot.anchor.setTo(0.5);

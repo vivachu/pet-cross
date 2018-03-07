@@ -93,24 +93,10 @@ class Level extends Phaser.Sprite{
 		    	this.addLane(laneid,1,5);laneid++;
 		}
 	    GameData.totalLanes=laneid-1;
-
-		this.game.world.setBounds(0, 0, GameData.boundsWidth, GameData.totalLanes*GameData.tileWidth);
-		this.landGroup = this.game.add.group();
-		this.land= new Land(this.game, this);
-		
-		this.carGroup = this.game.add.group();
-		this.game.physics.arcade.enable(this.carGroup);
-
-		this.woodGroup = this.game.add.group();
-		this.game.physics.arcade.enable(this.woodGroup);
-
-		this.fenceGroup = this.game.add.group();
-		this.game.physics.arcade.enable(this.fenceGroup);
-
-		this.bonusGroup = this.game.add.group();
-		this.game.physics.arcade.enable(this.bonusGroup);
+   		this.land= new Land(this.game, this);
 
 
+//		this.game.world.setBounds(0, 0, GameData.boundsWidth, GameData.totalLanes*GameData.tileWidth);
 		this.avatar = new Avatar(this.game, this);
 		this.avatarTrail = new AvatarTrail(this.game, this, this.avatar);
 		this.avatar.trail=this.avatarTrail;
@@ -121,9 +107,6 @@ class Level extends Phaser.Sprite{
 		var dWidth=this.game.width-(150*GameData.scaleFactor);
 		var dHeight=this.game.height*.5;
 
-		this.main.timeBar = new TimeBar(this.game, this.main);
-		this.main.progressCounter = new ProgressCounter(this.game, this.main);
-		this.main.lives = new Lives(this.game, this.main);
 		GameData.coinCollected = 0;
 		GameData.ticketCollected = 0;
 
@@ -145,6 +128,12 @@ class Level extends Phaser.Sprite{
 
 	}
 
+	begin(){
+		this.main.timeBar = new TimeBar(this.game, this.main);
+		this.main.progressCounter = new ProgressCounter(this.game, this.main);
+		this.main.lives = new Lives(this.game, this.main);
+
+	}
 
 	getVariant(){
     	var newVariant = this.game.rnd.integerInRange(1,3);
@@ -186,9 +175,9 @@ class Level extends Phaser.Sprite{
 	}
 
 	update(){
-	//	if (GameData.gameState==1){
+		if (GameData.gameState!=4){
 			this.avatar.update();
-	//		this.avatar.bringToTop();
+			this.avatar.bringToTop();
 			var ln=Math.round(this.game.camera.y/GameData.tileWidth);
 			GameData.playDistance= this.avatar.starty - this.avatar.posy;
 			//this.textConsole0.text ='campos: ' + this.avatar.inWater + ',' + this.avatar.posy;
@@ -197,7 +186,7 @@ class Level extends Phaser.Sprite{
 			//this.textConsole0.text = 'sw : ' + GameData.leftOffset;
 			//this.textLives.text = GameData.playDistance;
 			this.land.checkLane();
-	//	}
+		}
 	}
 }
 

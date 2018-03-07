@@ -11,7 +11,7 @@ class Coin extends Phaser.Sprite{
 		this.lane = lane;
 		this.arah = lane.arah;
 		this.game.add.existing(this);
-		this.land.level.bonusGroup.add(this);
+		this.land.level.main.bonusGroup.add(this);
 
 		this.width=GameData.scaleFactor*144;
 		this.height=GameData.scaleFactor*144;

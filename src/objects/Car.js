@@ -11,7 +11,7 @@ class Car extends Phaser.Sprite{
 		this.lane = lane;
 		this.arah = lane.arah;
 		this.game.add.existing(this);
-		this.land.level.carGroup.add(this);
+		this.land.level.main.carGroup.add(this);
 		this.triggerOther = false;
 
 		this.width=GameData.scaleFactor*288;

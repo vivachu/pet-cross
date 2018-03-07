@@ -1,22 +1,14 @@
-import Avatar from 'objects/Avatar';
-import AvatarTrail from 'objects/AvatarTrail';
+import SoundMan from 'helpers/SoundMan';
+
 
 class GameTitle extends Phaser.State {
 
 	create() {
-		this.startGame();
-	}
-
-	startGame() {
-		//this.testThing();
+		SoundMan.create(this.game);
+		//SoundMan.playBGMusic();
 		this.game.state.start("Main");
 	}
 
-	testThing(){
-	}
-
-	actionOnClick () {
-	}
 
 }
 
