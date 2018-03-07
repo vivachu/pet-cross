@@ -12,7 +12,7 @@ class Wood extends Phaser.Sprite{
 		this.arah = lane.arah;
 		this.rightLimit=rightLimit;
 		this.game.add.existing(this);
-		this.land.level.woodGroup.add(this);
+		this.land.level.main.woodGroup.add(this);
 		this.triggerOther = false;
 		this.name = 'log'+lane.line+"_"+xpos;
 

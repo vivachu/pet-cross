@@ -22,7 +22,6 @@ class Main extends Phaser.State {
 		this.game.stage.backgroundColor = '#000000';
 		this.game.time.advancedTiming = true;
 		
-		SoundMan.create(this.game);
 
 		GameData.create(this.game);
 		
@@ -31,7 +30,31 @@ class Main extends Phaser.State {
 		this.firstStart = true;
 		this.currentLevel = null;
 
-		this.gameStart = new GameStart(this.game,this);
+
+
+		this.landGroup = this.game.add.group();
+		
+		this.carGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.carGroup);
+
+		this.woodGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.woodGroup);
+
+		this.fenceGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.fenceGroup);
+
+		this.bonusGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.bonusGroup);
+
+		this.avatarGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.avatarGroup);
+
+		this.hudGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.hudGroup);
+
+		this.uiGroup = this.game.add.group();
+		this.game.physics.arcade.enable(this.uiGroup);
+
 
 		this.tutorial = new Tutorial(this.game, this);
 		this.gameFinished = new GameFinished(this.game, this);
@@ -42,47 +65,24 @@ class Main extends Phaser.State {
 		this.lives = null;
 		this.popup = new PopUp(this.game, this);
 
-		SoundMan.resumeMusic();
-		//this.startGame();//debug
-				//this.gameOver.startEndingScene();//debug
 
-	}
-
-	pauseClicked(){
-		if (GameData.gameState==2) {
-			GameData.gameState=1;
-			this.startGame();
-		}else if (GameData.gameState==1) {
-			GameData.gameState=2;
-			this.stopGame();
-		}
-	}
-
-	
-	prepareGame(){
 		this.firstStart = false;
 		this.currentLevel = new Level(this.game, this);
+		this.gameStart = new GameStart(this.game,this);
+		SoundMan.playBGMusic();
+
+	}
+
+
+	startLevel(){
+		this.currentLevel.begin();
 		this.timeBar.Start();
 		this.progressCounter.Start();
 		this.lives.Start();
 
 		this.tutorial.startTutorial();
-	}
-
-	startGame(){
-		if (this.firstStart){
-  		//	this.pauseButton = this.game.add.button(this.game.width-(110* GameData.scaleFactor), this.game.height-(100 * GameData.scaleFactor), 'btpauseup', this.pauseClicked, this, 2, 1, 0);
-  		//	this.pauseButton.scale.setTo(GameData.scaleFactor * 1);
-		//	this.pauseButton.fixedToCamera = true;
-
-		}
-
 		GameData.gameState=1;
-		SoundMan.resumeMusic();
-		//this.gameFinished = new GameFinished(this.game, this);
-		//this.convertTimeToCoin();
 
-		//this.initGameFinished();
 	}
 
 	stopGame(){
@@ -96,9 +96,9 @@ class Main extends Phaser.State {
 	}
 
 	convertTimeToCoin(){
-		console.log('totalDistance: ' + GameData.playDistance);
-		console.log('coinCollected: ' + GameData.coinCollected);
-		console.log('ticketCollected: ' + GameData.ticketCollected);
+	//	console.log('totalDistance: ' + GameData.playDistance);
+//		console.log('coinCollected: ' + GameData.coinCollected);
+//		console.log('ticketCollected: ' + GameData.ticketCollected);
 		Backend.serviceCallEnd(this, this.timeBar.totalSeconds);
 	}
 
@@ -220,7 +220,7 @@ class Main extends Phaser.State {
 
 		if (this.gameFinished == null)this.gameFinished = new GameFinished(this.game, this);
 			
-		console.log('api call error');
+	//	console.log('api call error');
 		this.gameFinished.showCoins('silver', 10, 'API error', 'assets/pics/avatar/dummyPet3.jpg', 'assets/pics/avatar/dummyPet3.jpg', 10, 'ER', 10, 10, 'walk err in 6 h 0 m', 'assets/pics/avatar/dummyPet3.jpg', 'ER');
 		
 		
@@ -229,12 +229,13 @@ class Main extends Phaser.State {
 
 
 	initGameFinished(){
-//		this.currentLevel.avatar.visible=false;
+	//	console.log("initGameFinished");
+		if (this.gameState==4) return;
+		GameData.gameState=4;
 		this.gameOver.startGameOverScene();
 		this.timeBar.pause=true;
 		this.currentLevel=null;
 		this.stopGame();
-		GameData.gameState=3;
 		this.gameEnd = true;
 	}
 

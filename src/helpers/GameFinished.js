@@ -20,6 +20,12 @@ class GameFinished{
 
 		if (this.endScreenPlayed == true)return;
 		this.endScreenPlayed = true;
+
+
+
+		//calculating score
+		GameData.score = GameData.playDistance + GameData.lives * Math.max(0,120-GameData.playTime);
+		console.log(GameData.score  + " = " +  GameData.playDistance + " + " + GameData.lives + " * " + "Math.max(0,120 - " + GameData.playTime)
 		
 		this.coinBonusType = cbt;
 		this.coinBonusAmout = cba;

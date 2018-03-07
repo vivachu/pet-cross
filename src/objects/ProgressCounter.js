@@ -7,6 +7,8 @@ class ProgressCounter extends Phaser.Sprite{
 		this.game = game;
 		this.main = main;
 		this.game.add.existing(this);
+		this.main.hudGroup.add(this);
+
 		this.scale.setTo(GameData.scaleFactor);
 		this.fixedToCamera = true;
 		this.pause = true;
@@ -22,7 +24,7 @@ class ProgressCounter extends Phaser.Sprite{
 
     	this.addChild(this.stext);
     	this.prevTime = this.game.time.totalElapsedSeconds() ; 
-    	this.gameTime = 0; 
+    	GameData.playTime = 0; 
 
     	this.totalSeconds = 0;
 	}
@@ -37,19 +39,20 @@ class ProgressCounter extends Phaser.Sprite{
 	}
 
 	update(){
-		if (this.pause) return;
+		if (this.pause || GameData.gameState!=1) return;
 
 		if (Math.round(this.game.time.totalElapsedSeconds()) > this.prevTime){
 			this.prevTime = Math.round(this.game.time.totalElapsedSeconds());
-			this.gameTime ++ ;
+			GameData.playTime ++ ;
 		}
 
-		this.totalSeconds = Math.round(this.gameTime);
+		this.totalSeconds = Math.round(GameData.playTime);
  		var min = Math.floor(this.totalSeconds/60);  
 		var sec = this.totalSeconds % 60
 
 
 		this.stext.text = (min < 10 ? '0' + min : '' + min) + ":" + (sec < 10 ? '0' + sec : '' + sec) ;
+
 	}
 
 }

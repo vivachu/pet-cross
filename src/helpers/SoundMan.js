@@ -11,7 +11,6 @@ class SoundMan {
 		this.music = this.game.add.audio('bgMusic', 0.3, true);
 		this.music.allowMultiple = false;
 
-
 		this.sfxTap = this.game.add.audio('taps');
 		this.sfxTap.addMarker('tap1', 0, 0.234);
 		this.sfxTap.addMarker('tap2', 0.234, 0.208);
@@ -31,8 +30,7 @@ class SoundMan {
 
 		this.sfxCoinFin = this.game.add.audio('coinFin', 0.4);
 		this.sfxCoinFin.allowMultiple = true;
-
-
+		
 		//this.music.play();
 		//this.music.pause();
 		//this.pause = true;
@@ -69,6 +67,11 @@ class SoundMan {
 		
 
 		
+	}
+
+	playBGMusic(){
+		
+		this.music.play();
 	}
 
 	resumeMusic(){
