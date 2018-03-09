@@ -20,7 +20,7 @@ class Lane {
 		this.objects = new Array();
     	this.itemArray = ['flower','rock1','bush'];
     	//create lane
-		this.bmdLane=this.game.add.bitmapData(GameData.columns*360,144);
+		this.bmdLane=this.game.add.bitmapData(GameData.columns*360,145);
 		this.sprLane = this.game.add.sprite(0,this.line*(144*GameData.scaleFactor),this.bmdLane);
 		this.sprLane.scale.x=GameData.scaleFactor;
 		this.sprLane.scale.y=GameData.scaleFactor;
@@ -40,9 +40,9 @@ class Lane {
 				case 7: obname='water'+this.game.rnd.integerInRange(1,4);break;  	//air
 				case 8: obname='waterdown';break;									//batas air rumput
 			}
-			this.addBMD(i*144,0,144,144,obname);
+			this.addBMD(i*144,0,144,145,obname);
 			//add shade to unplayable areas
-			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*144,0,144,144,'shade');
+			if (i<GameData.leftOffset || i>GameData.rightOffset) this.addBMD(i*144,0,144,145,'shade');
 		}
 
 		if (GameData.arahLane==1) this.arah=-1; else this.arah=1;
@@ -91,11 +91,11 @@ class Lane {
 			}
 		}
 
-	   	this.stext  = this.game.add.bitmapText(60, 75, 'fontOduda', this.line, 20);
+/*	   	this.stext  = this.game.add.bitmapText(60, 75, 'fontOduda', this.line, 20);
 		this.stext.anchor.setTo(0.5);
 		this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
 		this.sprLane.addChild(this.stext);
-
+*/
 	}
 
 	drawFences(){
