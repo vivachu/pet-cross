@@ -99,12 +99,11 @@ class Main extends Phaser.State {
 	}
 
 	convertTimeToCoin(){
-	//	console.log('totalDistance: ' + GameData.playDistance);
-//		console.log('coinCollected: ' + GameData.coinCollected);
-//		console.log('ticketCollected: ' + GameData.ticketCollected);
-		Backend.serviceCallEnd(this, this.timeBar.totalSeconds);
+		if (GameData.playDistance>200) GameData.playDistance=200;
+		GameData.score = GameData.playDistance + GameData.lives * Math.max(0,120-GameData.playTime);
+//		console.log(GameData.score  + " = " +  GameData.playDistance + " + " + GameData.lives + " * " + "Math.max(0,120 - " + GameData.playTime)
 
-		console.log('SCORE ' + this.timeBar.totalSeconds);
+		Backend.serviceCallEnd(this, GameData.score);
 	}
 
 	callBackEnd(data){

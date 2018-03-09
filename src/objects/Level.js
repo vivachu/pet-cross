@@ -27,7 +27,7 @@ class Level extends Phaser.Sprite{
 		this.game=game;
 
 		//set the bounds with to 360+720+360 , so there's enough space in both sides for the items to popups
-		this.game.world.setBounds(0, 0, GameData.boundsWidth,30000);
+		this.game.world.setBounds(0, 0, GameData.boundsWidth,45000);
 
 		//creating level 
 		const lGrass = 1;
@@ -47,9 +47,9 @@ class Level extends Phaser.Sprite{
 		    	this.addLane(laneid,1,5);laneid++;
 		}
 	    for (var i=0;i<5;i++){
-		    	this.addLane(laneid,1,4);laneid++;
+		    	this.addLane(laneid,1,3);laneid++;
 		}
-	    while (ctr<GameData.totalLanes){
+	    while (ctr<GameData.totalLanes-20){
 	    	//var laneType = lGrass;//debug
 	    	var laneType = this.game.rnd.integerInRange(1,3); 
 	    	if (laneType==2 && prevLane==3) laneType=lGrass;
@@ -89,10 +89,14 @@ class Level extends Phaser.Sprite{
 	    }
 	    if (prevLane==lroad) {this.addLane(laneid,5);laneid++;ctr++;}
 		if (prevLane==lwater) {this.addLane(laneid,8);laneid++;ctr++;}
-	    for (var i=0;i<10;i++){
+	    while (laneid<200){
+		    	this.addLane(laneid,1,3);laneid++;
+		}
+	    while (laneid<210){
 		    	this.addLane(laneid,1,5);laneid++;
 		}
 	    GameData.totalLanes=laneid-1;
+	    console.log("GameData.totalLanes " + GameData.totalLanes);
    		this.land= new Land(this.game, this);
 
 

@@ -20,8 +20,8 @@ class Avatar extends Phaser.Sprite{
     	this.midOffset=GameData.tileWidth*.5;
     	this.defaultScale=this.scale.x;
 
- 		this.setpos(GameData.midOffset,GameData.totalLanes-8);
- //		this.setpos(GameData.midOffset,300);
+// 		this.setpos(GameData.midOffset,GameData.totalLanes-8);
+ 		this.setpos(GameData.midOffset,205); 
  		this.game.physics.enable(this, Phaser.Physics.ARCADE);
 		
 	    this.lastSafePosty = this.posy;
@@ -33,7 +33,7 @@ class Avatar extends Phaser.Sprite{
 
     	this.jumpPower = GameData.tileWidth;
     	this.jumpSpeed = 100;
-    	this.keyfree=true;
+    	this.keyfree=true
     	GameKey.create(this,this.game);
     	GameTouch.create(this,this.game);
     	this.tofollow = this.game.add.sprite(0,0,'');

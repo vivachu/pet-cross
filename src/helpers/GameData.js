@@ -30,7 +30,7 @@ class GameData {
 
 		this.leftPixelOffset = this.leftOffset*this.tileWidth-this.tileWidth;
 		this.rightPixelOffset = this.rightOffset*this.tileWidth+this.tileWidth;
-		this.totalLanes = 100;
+		this.totalLanes = 200;
 		this.playDistance = 0;//distance travelled in lanes
 		this.playTime = 0;// length of play in sec
 		this.gameTime = 120;// total playing time
@@ -59,7 +59,6 @@ class GameData {
 	    }else {
 	    	this.assetUrl = 'https://assets.parade.pet/';
 	    }	
-
 
 	    //token
 	   if (this.getUrlVars()["token"] != null){
