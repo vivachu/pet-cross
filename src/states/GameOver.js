@@ -70,7 +70,7 @@ class GameOver{
 		
 		var btDoneEndTween = this.game.add.tween(this.btDoneEnd.scale).to( { x: 1 * GameData.scaleFactor, y: 1 * GameData.scaleFactor}, 600, Phaser.Easing.Back.Out, true, 0);
 		
-
+		
 	}
 
 	

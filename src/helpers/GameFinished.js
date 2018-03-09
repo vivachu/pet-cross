@@ -91,7 +91,7 @@ class GameFinished{
 
 		this.game.load.image('petImage', piurl);
 
-		console.log('puiurl ' + puiurl);
+	//	console.log('puiurl ' + puiurl);
 
 		if (this.petUserImageUrl != "null")this.game.load.image('ownerImage', puiurl);
 		if (this.userImageUrl != "null")this.game.load.image('userImage', uiu);
