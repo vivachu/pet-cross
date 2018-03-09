@@ -91,6 +91,11 @@ class Lane {
 			}
 		}
 
+	   	this.stext  = this.game.add.bitmapText(60, 75, 'fontOduda', this.line, 20);
+		this.stext.anchor.setTo(0.5);
+		this.stext.scale.setTo(GameData.scaleFactor,GameData.scaleFactor);
+		this.sprLane.addChild(this.stext);
+
 	}
 
 	drawFences(){
