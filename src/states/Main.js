@@ -212,7 +212,7 @@ class Main extends Phaser.State {
 			this.gameFinished.showCoins(data.coinBonus.type, data.coinBonus.amount, data.pet.name, this.petImageUrl, this.petUserImageUrl, data.pointBonus, data.pet.user.initials, 
 			data.user.silverCoins, data.user.goldCoins, nextGameMessage, this.userImageUrl, data.user.initials);
 
-			console.log('endscreen a1');
+			//console.log('endscreen a1');
 		}
 		
 
@@ -245,10 +245,10 @@ class Main extends Phaser.State {
 
 			if (this.gameFinished == null)this.gameFinished = new GameFinished(this.game, this);
 			
-			console.log('api call error');
+			//console.log('api call error');
 			this.gameFinished.showCoins('silver', 10, 'API error', 'assets/pics/avatar/dummyPet3.jpg', 'assets/pics/avatar/dummyPet3.jpg', 10, 'ER', 10, 10, 'walk err in 6 h 0 m', 'assets/pics/avatar/dummyPet3.jpg', 'ER');
 			
-			console.log('endscreen a3');
+			//console.log('endscreen a3');
 		}
 
 		this.dct = 'silver';
@@ -303,7 +303,7 @@ class Main extends Phaser.State {
 
 
 
-		console.log("game ended");
+		//console.log("game ended");
 
 		if (this.callBackFinished == true){
 
@@ -312,7 +312,7 @@ class Main extends Phaser.State {
 			this.gameFinished.showCoins(this.dct, this.dca, this.dpn, this.petImageUrl, this.petUserImageUrl, this.dpb, this.dpui, this.dusc, this.dugc, this.ngm, this.userImageUrl, this.dui);
 			//this.gameFinished.showCoins(this.dct, this.dca, this.dpn, this.petImageUrl, this.petUserImageUrl, this.dpb, this.dpui);
 
-			console.log('endscreen a2');
+			//console.log('endscreen a2');
 		}		//
 	}
 

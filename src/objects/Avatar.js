@@ -88,6 +88,7 @@ class Avatar extends Phaser.Sprite{
 		}
 		if (arah=='down'){
 			if (this.level.lanes[this.posy+1].rows[this.posx-GameData.leftOffset] != undefined) return;
+  	    	if (this.posy>204) return;
   	    	this.posy++;
  	    	//this.posx=Math.round(this.x/GameData.tileWidth);
     		if (this.level.lanes[this.posy].type==7){//is in water 

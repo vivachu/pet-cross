@@ -98,12 +98,12 @@ class GameFinished{
 
 		this.game.load.start();
 
-		console.log('game fin');
+		//console.log('game fin');
 	}
 
 	loadComplete() {
 
-		console.log('complete');
+		//console.log('complete');
 		this.startEndingScene();
 
 
@@ -113,7 +113,7 @@ class GameFinished{
 
 		
 
-		console.log('cam 2' + this.game.camera.x + ', ' + this.game.camera.y) ;
+		//console.log('cam 2' + this.game.camera.x + ', ' + this.game.camera.y) ;
 
 		this.rectBG = this.game.add.graphics(this.game.world.centerX, this.game.world.centerY);
 		this.rectBG.beginFill(0x000000, 1);
@@ -588,7 +588,7 @@ class GameFinished{
 
 	btDoneEndClicked(){
 
-		console.log('clicked');
+		//console.log('clicked');
 
 		var winBannerEnd = this.game.add.tween(this.winBanner.cameraOffset).to( { y: -200*GameData.scaleFactor}, 1500, Phaser.Easing.Back.Out, true);
 		var raysEnd = this.game.add.tween(this.rays).to({alpha:0}, 1000, Phaser.Easing.Linear.None, true);
