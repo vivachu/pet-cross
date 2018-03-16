@@ -16,10 +16,10 @@ class SoundMan {
 		this.sfxTap.addMarker('tap2', 0.234, 0.208);
 		this.sfxTap.allowMultiple = true;
 
-		this.sfxMove = this.game.add.audio('move', 2.2);
+		this.sfxMove = this.game.add.audio('move', 1);
 		this.sfxMove.allowMultiple = true;
 
-		this.sfxDead = this.game.add.audio('dead', 1.2);
+		this.sfxDead = this.game.add.audio('dead', 1);
 		this.sfxDead.allowMultiple = true;
 
 		this.sfxCoinAdd = this.game.add.audio('coinAdd', 0.6);
@@ -51,7 +51,7 @@ class SoundMan {
 		if (this.music.currentMarker != 'bgWin'){
 
 			this.music.stop();
-			this.music = this.game.add.audio('bgWin', 1.2, false);
+			this.music = this.game.add.audio('bgWin', 1, false);
 			this.music.play();
 			//console.log('win');
 		}
